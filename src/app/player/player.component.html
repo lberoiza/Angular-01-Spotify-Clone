@@ -1,0 +1,23 @@
+<div class="flex flex-row justify-between w-full px-1 z-50">
+  <div class="w-[200px]">
+    <span>current song</span>
+    <!--    <PlayerCurrentSong {...currentMusic.song} />-->
+  </div>
+
+  <div class="place-content-center flex-1">
+    <div class="flex justify-center flex-col items-center">
+      <button class="bg-white rounded-full p-2">
+        <!--        {isPlaying ? <Pause /> : <Play />}-->
+        <!--        <span class="text-black">Play</span>-->
+        <icon-play class="size-6"></icon-play>
+      </button>
+      <!--      <PlayerSoundControl audio={audioRef} />-->
+      <player-track-control/>
+    </div>
+  </div>
+
+  <div class="grid place-content-center">
+    <span>volumen control</span>
+    <!--    <PlayerVolumeControl />-->
+  </div>
+</div>
