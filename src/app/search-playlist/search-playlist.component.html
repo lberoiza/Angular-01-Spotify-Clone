@@ -1,34 +1,24 @@
-<nav class="flex flex-col flex-1 gap-2">
+<nav class="flex flex-1 flex-col gap-2">
   <div class="bg-zinc-900 rounded-lg p-2">
     <ul>
       <menu-item href="/" label="Inicio">
-        <icon-home />
+        <icon-home/>
       </menu-item>
 
       <menu-item href="/#" label="Buscar">
-        <icon-search />
+        <icon-search/>
       </menu-item>
-<!--      <SideMenuItem href="/">-->
-<!--        <HomeIcon />-->
-<!--      </SideMenuItem>-->
-
-<!--      <SideMenuItem href="/#">-->
-<!--        <SearchIcon />-->
-<!--        Buscar-->
-<!--      </SideMenuItem>-->
     </ul>
   </div>
 
   <div class="bg-zinc-900 rounded-lg p-2 flex-1">
     <ul>
       <menu-item href="/#" label="Tu biblioteca">
-        <icon-library />
+        <icon-library/>
       </menu-item>
-<!--      <SideMenuItem href="/">-->
-<!--        <LibraryIcon />-->
-<!--      </SideMenuItem>-->
-
-<!--      {playlists.map((playlist) => <SideMenuCard playlist={playlist} />)}-->
+      @for (playlist of playlists; track playlist.id) {
+        <playlist-item [playlistItem]="playlist"/>
+      }
     </ul>
   </div>
 </nav>
