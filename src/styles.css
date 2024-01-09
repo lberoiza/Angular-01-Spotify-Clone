@@ -12,6 +12,7 @@ html, body { height: 100%; }
 body {
   margin: 0;
   font-family: "CircularStd", system-ui, sans-serif;
+  background-color: #010101;
 }
 
 @font-face {

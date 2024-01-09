@@ -1,10 +1,10 @@
-<div class="w-[350px] flex flex-row items-center items-center gap-2">
-  <audio></audio>
+<audio></audio>
+<div class="w-[500px] flex flex-row justify-center items-center gap-2">
   <!--  <mat-slider showTickMarks discrete [displayWith]="formatLabel">-->
-  <span>{{ elapsedTimeAsString() }}</span>
+  <span class="text-gray-500 text-xs">{{ elapsedTimeAsString() }}</span>
   <mat-slider>
     <input matSliderThumb [(ngModel)]="currentTimeSeg" #slider>
   </mat-slider>
-  <span>{{ totalTime }}</span>
+  <span class="text-gray-500 text-xs">{{ totalTime }}</span>
 </div>
 
