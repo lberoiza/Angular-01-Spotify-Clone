@@ -1,2 +1,51 @@
-<p>playlist-details works!</p>
-<p>playlist-details id:  {{playlistId}}</p>
+<div
+  id="playlist-container"
+  class="relative flex flex-col h-full bg-zinc-900 overflow-x-hidden"
+>
+  <header class="flex flex-row gap-8 px-6 mt-12">
+    <picture class="aspect-square w-52 h-52 flex-none">
+      <img
+        src="{{playlistDetails?.cover}}"
+        alt="Cover of {{playlistDetails?.title}}"
+        class="object-cover w-full h-full shadow-lg"
+      />
+    </picture>
+
+    <div class="flex flex-col justify-between">
+      <h2 class="flex flex-1 items-end">Playlist</h2>
+      <div>
+        <h1 class="text-5xl font-bold block text-white">
+          {{ playlistDetails?.title }}
+        </h1>
+      </div>
+
+      <div class="flex-1 flex items-end">
+        <div class="text-sm text-gray-300 font-normal">
+          <div>
+            <span>{{ playlistDetails?.artists?.join(", ") }}</span>
+          </div>
+          <p class="mt-1">
+            <span class="text-white">{{ playlistSongs.length }} canciones</span>,
+            {{ playlistDuration.hours }} horas, {{ playlistDuration.minutes }} minutos y {{ playlistDuration.seconds }}
+            segundos aproximadamente
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="pl-6 pt-6">
+    <!--    <CardPlayButton client:load id={id} size="large" />-->
+  </div>
+
+  <div class="relative z-10 px-6 pt-10"></div>
+
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-[1]"
+  >
+  </div>
+
+  <section class="p-6">
+    <!--    <MusicsTable songs={playListSongs} client:load/>-->
+  </section>
+</div>
