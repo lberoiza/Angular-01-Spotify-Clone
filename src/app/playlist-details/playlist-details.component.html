@@ -8,6 +8,7 @@
         src="{{playlistDetails?.cover}}"
         alt="Cover of {{playlistDetails?.title}}"
         class="object-cover w-full h-full shadow-lg"
+        [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_image'"
       />
     </picture>
 

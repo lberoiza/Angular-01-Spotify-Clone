@@ -12,6 +12,7 @@
     <picture class="aspect-square w-full h-auto flex-none">
       <img src="{{playlist.cover}}}" alt="Cover of {{playlist.title}} by {{getArtists()}}}"
            class="object-cover w-full h-full rounded-md"
+           [style.view-transition-name]="'playlist_' + playlist?.id +'_image'"
       />
       <!--        transition:name=`playlist ${id} image`-->
       <!--      />-->
