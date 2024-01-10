@@ -1,10 +1,13 @@
 import {Component, Input} from '@angular/core';
+import { RouterLink } from "@angular/router";
 
 
 @Component({
   selector: 'menu-item',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './menu-item.component.html',
   styleUrl: './menu-item.component.css'
 })
