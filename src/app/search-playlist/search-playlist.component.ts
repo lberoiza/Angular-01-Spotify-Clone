@@ -5,6 +5,7 @@ import { SearchComponent } from "../icons/search.component";
 import { LibraryComponent } from "../icons/library.component";
 import { type Playlist, playlists} from "../../data/data";
 import { PlaylistItemComponent } from "../playlist-item/playlist-item.component";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'search-playlist',
@@ -14,11 +15,12 @@ import { PlaylistItemComponent } from "../playlist-item/playlist-item.component"
     LibraryComponent,
     MenuItemComponent,
     SearchComponent,
-    PlaylistItemComponent
+    PlaylistItemComponent,
+    RouterLink
   ],
   templateUrl: './search-playlist.component.html',
   styleUrl: './search-playlist.component.css'
 })
 export class SearchPlaylistComponent {
-  protected readonly playlists = playlists;
+  protected readonly playlists: Playlist[] = playlists;
 }
