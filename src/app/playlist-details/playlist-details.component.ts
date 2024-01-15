@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { type Playlist, playlists, type Song, songs } from "../../data/data";
+import { PlaylistDetailsMusictableComponent } from "../playlist-details-musictable/playlist-details-musictable.component";
 
 export interface SongDuration {
   hours: number;
@@ -11,14 +12,12 @@ export interface SongDuration {
 @Component({
   selector: 'app-playlist-details',
   standalone: true,
-  imports: [],
+  imports: [PlaylistDetailsMusictableComponent],
   templateUrl: './playlist-details.component.html',
   styleUrl: './playlist-details.component.css'
 })
 export class PlaylistDetailsComponent implements OnInit {
-  // @Input() playlistId: number;
   protected allPlaylists: Playlist[] = playlists;
-  protected allSongs: Song[] = songs;
   protected playlistDetails: Playlist | undefined = undefined;
   protected playlistSongs: Song[] = [];
   protected playlistDuration: SongDuration = {

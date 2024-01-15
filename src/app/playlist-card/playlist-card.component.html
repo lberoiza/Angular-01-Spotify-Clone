@@ -6,32 +6,24 @@
   </div>
 
   <a routerLink="/playlist/{{playlist.id}}"
-     class="playlist-item transition-all duration-300 flex relative p-2 overflow-hidden gap-2 pb-6 rounded-md w-44 flex-col">
-    <!--    transition:name=`playlist ${id} box`-->
-    <!--  >-->
+     class="bg-blue-500 playlist-item transition-all duration-300 flex relative p-2 overflow-hidden gap-2 pb-6 rounded-md w-44 flex-col"
+     [style.view-transition-name]="'playlist_' + playlist?.id +'_box'"
+  >
     <picture class="aspect-square w-full h-auto flex-none">
       <img src="{{playlist.cover}}}" alt="Cover of {{playlist.title}} by {{getArtists()}}}"
            class="object-cover w-full h-full rounded-md"
            [style.view-transition-name]="'playlist_' + playlist?.id +'_image'"
       />
-      <!--        transition:name=`playlist ${id} image`-->
-      <!--      />-->
     </picture>
 
     <div class="flex flex-auto flex-col px-2">
-      <h4 class="text-white text-sm">
+      <h4 class="text-white text-sm" [style.view-transition-name]="'playlist_' + playlist?.id +'_title'">
         {{ playlist.title }}
-        <!--          transition:name=`playlist ${id} title`-->
-        <!--      >-->
-        <!--        {title}-->
       </h4>
 
       <span
-        class="text-xs text-gray-400">
+        class="text-xs text-gray-400" [style.view-transition-name]="'playlist_' + playlist?.id +'_artists'">
         {{ getArtists() }}
-        <!--        transition:name=`playlist ${id} artists`-->
-        <!--      >-->
-        <!--        {artistsString}-->
       </span>
     </div>
   </a>
