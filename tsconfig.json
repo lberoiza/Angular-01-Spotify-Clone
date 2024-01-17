@@ -39,6 +39,12 @@
       ],
       "@/services": [
         "src/app/services/*"
+      ],
+      "@/models": [
+        "src/app/models/*"
+      ],
+      "@/store": [
+        "src/app/store/*"
       ]
     }
   },
