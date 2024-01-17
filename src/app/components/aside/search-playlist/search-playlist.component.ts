@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
-import { HomeComponent } from "../icons/home.component";
-import { SearchComponent } from "../icons/search.component";
-import { LibraryComponent } from "../icons/library.component";
-import { type Playlist, playlists} from "../../data/data";
-import { PlaylistItemComponent } from "../playlist-item/playlist-item.component";
+import { HomeComponent } from "@/icons/home.component";
+import { SearchComponent } from "@/icons/search.component";
+import { LibraryComponent } from "@/icons/library.component";
+import { type Playlist, playlists} from "@/data/data";
+import { PlaylistItemComponent } from "@/components/aside/playlist-item/playlist-item.component";
 import { RouterLink } from "@angular/router";
 
 @Component({

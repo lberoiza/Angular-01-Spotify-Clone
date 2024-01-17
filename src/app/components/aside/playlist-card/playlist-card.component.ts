@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from "@angular/router";
-import { Playlist } from "../../data/data";
-import { colors } from "../../data/colors";
+import { Playlist } from "@/data/data";
+import { colors } from "@/data/colors";
 
 @Component({
   selector: 'playlist-card',

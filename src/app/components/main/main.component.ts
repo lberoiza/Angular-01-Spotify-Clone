@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {PlayerComponent} from "../player/player.component";
-import {SearchPlaylistComponent} from "../search-playlist/search-playlist.component";
+import {PlayerComponent} from "../footer/player/player.component";
+import {SearchPlaylistComponent} from "@/components/aside/search-playlist/search-playlist.component";
 import { RouterOutlet } from "@angular/router";
 
 @Component({

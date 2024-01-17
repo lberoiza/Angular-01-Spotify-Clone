@@ -7,22 +7,22 @@
 
   <a routerLink="/playlist/{{playlist.id}}"
      class="playlist-item transition-all duration-300 flex relative p-2 overflow-hidden gap-2 pb-6 rounded-md w-44 flex-col"
-     [style.view-transition-name]="'playlist_' + playlist?.id +'_box'"
+     [style.view-transition-name]="'playlist_' + playlist.id +'_box'"
   >
     <picture class="aspect-square w-full h-auto flex-none">
       <img src="{{playlist.cover}}}" alt="Cover of {{playlist.title}} by {{getArtists()}}}"
            class="object-cover w-full h-full rounded-md"
-           [style.view-transition-name]="'playlist_' + playlist?.id +'_image'"
+           [style.view-transition-name]="'playlist_' + playlist.id +'_image'"
       />
     </picture>
 
     <div class="flex flex-auto flex-col px-2">
-      <h4 class="text-white text-sm" [style.view-transition-name]="'playlist_' + playlist?.id +'_title'">
+      <h4 class="text-white text-sm" [style.view-transition-name]="'playlist_' + playlist.id +'_title'">
         {{ playlist.title }}
       </h4>
 
       <span
-        class="text-xs text-gray-400" [style.view-transition-name]="'playlist_' + playlist?.id +'_artists'">
+        class="text-xs text-gray-400" [style.view-transition-name]="'playlist_' + playlist.id +'_artists'">
         {{ getArtists() }}
       </span>
     </div>

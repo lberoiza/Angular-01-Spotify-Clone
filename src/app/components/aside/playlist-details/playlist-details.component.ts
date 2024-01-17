@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { type Playlist, playlists, type Song, songs } from "../../data/data";
+import { type Playlist, playlists, type Song, songs } from "@/data/data";
 import { PlaylistDetailsMusictableComponent } from "../playlist-details-musictable/playlist-details-musictable.component";
 
 export interface SongDuration {

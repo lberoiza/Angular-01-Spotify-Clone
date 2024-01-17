@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { type Playlist } from "../../data/data";
-import { colors } from "../../data/colors";
+import { type Playlist } from "@/data/data";
+import { colors } from "@/data/colors";
 import { NgOptimizedImage } from "@angular/common";
 import { RouterLink } from "@angular/router";
 

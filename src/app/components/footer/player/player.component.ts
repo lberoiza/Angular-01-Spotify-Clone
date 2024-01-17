@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {PlayerTrackControlComponent} from "../player-track-control/player-track-control.component";
-import {PlayComponent} from "../icons/play.component";
-import {PauseComponent} from "../icons/pause.component";
+import {PlayComponent} from "../../../icons/play.component";
+import {PauseComponent} from "../../../icons/pause.component";
 
 
 @Component({

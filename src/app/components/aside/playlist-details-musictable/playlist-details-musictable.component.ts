@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { type Song } from "../../data/data";
-import { TimeComponent } from "../icons/time.component";
+import { type Song } from "@/data/data";
+import { TimeComponent } from "@/icons/time.component";
 
 @Component({
   selector: 'playlist-details-musictable',
