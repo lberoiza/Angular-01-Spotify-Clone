@@ -3,6 +3,7 @@ import { PlayerTrackControlComponent } from "@/components/footer/player-track-co
 import { PlayComponent } from "@/icons/play.component";
 import { PauseComponent } from "@/icons/pause.component";
 import { PlayerCurrentSongComponent } from "@/components/footer/player-current-song/player-current-song.component";
+import { PlayerVolumeControlComponent } from "@/components/footer/player-volume-control/player-volume-control.component";
 
 
 @Component({
@@ -12,7 +13,8 @@ import { PlayerCurrentSongComponent } from "@/components/footer/player-current-s
     PauseComponent,
     PlayComponent,
     PlayerCurrentSongComponent,
-    PlayerTrackControlComponent
+    PlayerTrackControlComponent,
+    PlayerVolumeControlComponent
   ],
   templateUrl: './player.component.html',
   styleUrl: './player.component.css'

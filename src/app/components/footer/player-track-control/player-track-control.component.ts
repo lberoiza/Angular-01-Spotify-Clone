@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {MatSliderModule} from "@angular/material/slider";
-import {FormsModule} from '@angular/forms';
+import { MatSliderModule } from "@angular/material/slider";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'player-track-control',
@@ -15,16 +15,23 @@ import {FormsModule} from '@angular/forms';
 export class PlayerTrackControlComponent {
 
   currentTimeSeg: number = 0;
-  totalTime: string = '0:00';
+  songDurationSeg: number = 200;
 
 
   elapsedTimeAsString(): string {
-    let time = this.currentTimeSeg
-    if(time==0) return '0:00';
+    return this.calculateTimeAsString(this.currentTimeSeg);
+  }
+
+  totalTimeAsString(): string {
+    return this.calculateTimeAsString(this.songDurationSeg);
+  }
+
+
+  private calculateTimeAsString(time: number): string {
+    if (time == 0) return '0:00';
     let minutes: number = Math.floor(time / 60);
     let seconds: number = Math.floor(time % 60);
     return minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
   }
-
 
 }
