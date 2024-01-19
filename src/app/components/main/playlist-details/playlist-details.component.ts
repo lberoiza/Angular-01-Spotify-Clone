@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { type Playlist, playlists, type Song, songs } from "@/data/data";
+import type { Playlist, Song } from "@/data/data";
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
+import { PlaylistApiService } from "@/services/playlist-api.service";
 import {
   PlaylistDetailsMusictableComponent
 } from "../playlist-details-musictable/playlist-details-musictable.component";
@@ -20,10 +21,12 @@ export interface SongDuration {
     PlaylistDetailsMusictableComponent
   ],
   templateUrl: './playlist-details.component.html',
-  styleUrl: './playlist-details.component.css'
+  styleUrl: './playlist-details.component.css',
+  providers: [
+    PlaylistApiService
+  ]
 })
 export class PlaylistDetailsComponent implements OnInit {
-  protected allPlaylists: Playlist[] = playlists;
   protected playlistDetails: Playlist | undefined = undefined;
   protected playlistSongs: Song[] = [];
   protected playlistDuration: SongDuration = {
@@ -34,7 +37,8 @@ export class PlaylistDetailsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private playlistApiService: PlaylistApiService) {
   }
 
 
@@ -42,8 +46,8 @@ export class PlaylistDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id'];
       if (id) {
-        this.playlistDetails = this.allPlaylists.find(playlist => playlist.id == id);
-        this.playlistSongs = songs.filter((song) => song.albumId === this.playlistDetails?.albumId)
+        this.playlistDetails = this.playlistApiService.getPlaylistById(id);
+        this.playlistSongs = this.playlistApiService.getSongsByPlaylist(this.playlistDetails);
         this.playlistDuration = this.getTotalTime();
       }
     });
