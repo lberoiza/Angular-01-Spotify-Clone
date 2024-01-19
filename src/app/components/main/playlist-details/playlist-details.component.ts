@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { type Playlist, playlists, type Song, songs } from "@/data/data";
-import { PlaylistDetailsMusictableComponent } from "../playlist-details-musictable/playlist-details-musictable.component";
+import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
+import {
+  PlaylistDetailsMusictableComponent
+} from "../playlist-details-musictable/playlist-details-musictable.component";
 
 export interface SongDuration {
   hours: number;
@@ -12,7 +15,10 @@ export interface SongDuration {
 @Component({
   selector: 'app-playlist-details',
   standalone: true,
-  imports: [PlaylistDetailsMusictableComponent],
+  imports: [
+    PlaylistButtonPlayComponent,
+    PlaylistDetailsMusictableComponent
+  ],
   templateUrl: './playlist-details.component.html',
   styleUrl: './playlist-details.component.css'
 })

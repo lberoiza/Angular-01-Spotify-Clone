@@ -7,9 +7,10 @@
   <header class="flex flex-row gap-8 px-6 mt-12">
     <picture class="aspect-square w-52 h-52 flex-none">
       <img
-        src="{{playlistDetails?.cover}}"
+        [src]="playlistDetails?.cover"
         alt="Cover of {{playlistDetails?.title}}"
         class="object-cover w-full h-full shadow-lg"
+        width="100%"
         [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_image'"
       />
     </picture>
@@ -41,6 +42,7 @@
 
   <div class="pl-6 pt-6">
     <!--    <CardPlayButton client:load id={id} size="large" />-->
+    <playlist-button-play buttonSize="large"/>
   </div>
 
 
