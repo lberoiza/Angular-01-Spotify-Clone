@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Playlist, playlists } from "@/data/data";
-import { PlaylistCardComponent } from "@/components/aside/playlist-card/playlist-card.component";
+import { PlaylistCardComponent } from "@/components/main/playlist-card/playlist-card.component";
 import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
