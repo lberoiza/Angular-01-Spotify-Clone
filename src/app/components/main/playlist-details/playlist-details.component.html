@@ -40,8 +40,7 @@
   </header>
 
   <div class="pl-6 pt-6">
-    <!--    <CardPlayButton client:load id={id} size="large" />-->
-    <playlist-button-play buttonSize="large"/>
+    <playlist-button-play buttonSize="large" [playlistId]="playlistDetails?.id" />
   </div>
 
 

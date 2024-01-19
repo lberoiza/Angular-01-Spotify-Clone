@@ -17,7 +17,10 @@ export class PlaylistButtonPlayComponent implements OnInit{
   @Input()
   buttonSize: string = 'small';
 
-  protected iconClassName = 'w-4 h-4';
+  @Input()
+  playlistId: string | undefined = '0';
+
+  protected iconClassName = 'size-4';
 
   protected isPlayingPlaylist: boolean = false;
 
@@ -27,7 +30,6 @@ export class PlaylistButtonPlayComponent implements OnInit{
 
 
   playButtonPressed(): void {
-    console.log('playlist-button-play button pressed, size', this.buttonSize);
-    console.log('iconClassName', this.iconClassName);
+    console.log('Play playlistId', this.playlistId);
   }
 }
