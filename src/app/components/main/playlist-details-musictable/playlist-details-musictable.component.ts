@@ -5,7 +5,9 @@ import { TimeComponent } from "@/icons/time.component";
 @Component({
   selector: 'playlist-details-musictable',
   standalone: true,
-  imports: [TimeComponent],
+  imports: [
+    TimeComponent
+  ],
   templateUrl: './playlist-details-musictable.component.html',
   styleUrl: './playlist-details-musictable.component.css'
 })
