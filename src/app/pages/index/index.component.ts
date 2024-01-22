@@ -29,7 +29,7 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     console.log('Initialize index page')
     this.isPlaying$ = this.store.select(SelectPlayerIsPlaying);
-    this.store.dispatch(PlayerStoreActions.setIsPlaying({ isPlaying: true }));
+    this.store.dispatch(PlayerStoreActions.setIsPlaying({ isPlaying: false }));
   }
 
 }

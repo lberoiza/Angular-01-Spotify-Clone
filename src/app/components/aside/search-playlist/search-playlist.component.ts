@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { MenuItemComponent } from '../menu-item/menu-item.component';
+import type { Playlist} from "@/data/data";
 import { HomeComponent } from "@/icons/home.component";
-import { SearchComponent } from "@/icons/search.component";
 import { LibraryComponent } from "@/icons/library.component";
-import { type Playlist, playlists} from "@/data/data";
+import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { PlaylistItemComponent } from "@/components/aside/playlist-item/playlist-item.component";
 import { RouterLink } from "@angular/router";
+import { SearchComponent } from "@/icons/search.component";
+import { playlists} from "@/data/data";
 
 @Component({
   selector: 'search-playlist',
