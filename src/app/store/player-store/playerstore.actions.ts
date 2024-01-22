@@ -9,6 +9,7 @@ export const PlayerStoreActions = createActionGroup({
     'Set Volume': props<{ volume: number }>(),
     'Set Is Playing': props<{ isPlaying: boolean }>(),
     'Set CurrentMusic': props<{ currentMusic: CurrentMusic }>(),
+    'Set currentSong': props<{ song: Song }>(),
     'Set currentPlaylist': props<{ playlist: Playlist }>(),
     'Set currentPlaylistSongs': props<{ songs: Song[] }>(),
   },
