@@ -1,6 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PlayComponent } from "@/icons/play.component";
+import { AppState } from "@/store/app.state";
 import { PauseComponent } from "@/icons/pause.component";
+import { PlayComponent } from "@/icons/play.component";
+import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
+import { PlaylistApiService } from "@/services/playlist-api.service";
+import { SelectPlayerCurrentMusic } from "@/store/player-store/playerstore.selectors";
+import { StateManagerService } from "@/services/state-manager.service";
+import { Store } from "@ngrx/store";
+import { take } from "rxjs";
 
 @Component({
   selector: 'playlist-button-play',
@@ -10,7 +17,11 @@ import { PauseComponent } from "@/icons/pause.component";
     PlayComponent
   ],
   templateUrl: './playlist-button-play.component.html',
-  styleUrl: './playlist-button-play.component.css'
+  styleUrl: './playlist-button-play.component.css',
+  providers: [
+    PlaylistApiService,
+    StateManagerService
+  ]
 })
 export class PlaylistButtonPlayComponent implements OnInit{
 
@@ -21,15 +32,28 @@ export class PlaylistButtonPlayComponent implements OnInit{
   playlistId: string | undefined = '0';
 
   protected iconClassName = 'size-4';
-
   protected isPlayingPlaylist: boolean = false;
 
-  ngOnInit() {
-    this.iconClassName = this.buttonSize === 'small' ? 'size-4' : 'size-5'
+
+  constructor(
+    private store: Store<AppState>,
+    private stateManagerService: StateManagerService,
+    private playlistApiService: PlaylistApiService
+  ) {
   }
 
+  ngOnInit() {
+    this.iconClassName = this.buttonSize === 'small' ? 'size-4' : 'size-5';
+  }
 
-  playButtonPressed(): void {
-    console.log('Play playlistId', this.playlistId);
+  protected playButtonPressed(): void {
+    if (this.playlistId) {
+      const {
+        playlistDetails,
+        playlistSongs
+      } = this.stateManagerService.updatePlaylistDetailsAndSongsByPlaylistId(this.playlistApiService, this.store, this.playlistId);
+      this.store.dispatch(PlayerStoreActions.setCurrentSong({song: playlistSongs[0]}))
+    }
+
   }
 }
