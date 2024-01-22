@@ -5,8 +5,12 @@ import { AppState } from "@/store/app.state";
 import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { PlaylistApiService } from "@/services/playlist-api.service";
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
-import { PlaylistDetailsMusictableComponent } from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
+import {
+  PlaylistDetailsMusictableComponent
+} from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
+import { StateManagerService } from "@/services/state-manager.service";
 import { Store } from "@ngrx/store";
+import { playlists } from "@/data/data";
 
 export interface SongDuration {
   hours: number;
@@ -24,7 +28,8 @@ export interface SongDuration {
   templateUrl: './playlist-details.component.html',
   styleUrl: './playlist-details.component.css',
   providers: [
-    PlaylistApiService
+    PlaylistApiService,
+    StateManagerService
   ]
 })
 export class PlaylistDetailsComponent implements OnInit {
@@ -38,6 +43,7 @@ export class PlaylistDetailsComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
+    private stateManagerService: StateManagerService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private playlistApiService: PlaylistApiService) {
@@ -48,25 +54,13 @@ export class PlaylistDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id'];
       if (id) {
-        this.getPlayListDetailsAndSongsFromApi(id);
-        this.updateCurrentPlaylistStore();
+        ({
+          playlistDetails: this.playlistDetails,
+          playlistSongs: this.playlistSongs
+        } = this.stateManagerService.updatePlaylistDetailsAndSongsByPlaylistId(this.playlistApiService, this.store, id));
       }
     });
   }
-
-  getPlayListDetailsAndSongsFromApi(playlistId: string) {
-    this.playlistDetails = this.playlistApiService.getPlaylistById(playlistId);
-    this.playlistSongs = this.playlistApiService.getSongsByPlaylist(this.playlistDetails);
-    this.playlistDuration = this.getTotalTime();
-  }
-
-  private updateCurrentPlaylistStore() {
-    this.store.dispatch(PlayerStoreActions.setCurrentPlaylistSongs({songs: this.playlistSongs}));
-    if(this.playlistDetails) {
-      this.store.dispatch(PlayerStoreActions.setCurrentPlaylist({playlist: this.playlistDetails}));
-    }
-  }
-
 
   private getTotalTime(): SongDuration {
     let totalOfSeconds = 0;
