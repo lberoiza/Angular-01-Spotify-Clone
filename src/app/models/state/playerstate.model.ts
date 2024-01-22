@@ -1,8 +1,8 @@
 import { type Playlist, type Song} from "@/data/data";
 
 export interface CurrentMusic {
-  playlist: Playlist | null;
-  song: Song | null;
+  playlist: Playlist | undefined;
+  song: Song | undefined;
   songs: Song[];
 }
 

@@ -1,11 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-
+import type { PlayerState } from '@/models/state/playerstate.model';
 import { PlayerStoreActions } from '@/store/player-store/playerstore.actions';
-import { type PlayerState } from '@/models/state/playerstate.model';
 
 export const initialState: PlayerState = {
   isPlaying: false,
-  currentMusic: {playlist: null, song: null, songs: []},
+  currentMusic: {playlist: undefined, song: undefined, songs: []},
   volume: 0.1
 };
 
@@ -19,5 +18,11 @@ export const PlayerStoreReducers = createReducer(
   }),
   on(PlayerStoreActions.setCurrentMusic, (currentState, {currentMusic}) => {
     return {...currentState, currentMusic: currentMusic}
+  }),
+  on(PlayerStoreActions.setCurrentPlaylist, (currentState, {playlist}) => {
+    return {...currentState, currentMusic: {...currentState.currentMusic, playlist: playlist}}
+  }),
+  on(PlayerStoreActions.setCurrentPlaylistSongs, (currentState, {songs}) => {
+    return {...currentState, currentMusic: {...currentState.currentMusic, songs: songs}}
   })
 );
