@@ -1,6 +1,7 @@
 import { createSelector } from "@ngrx/store";
 import type { AppState } from "@/store/app.state";
 import type { PlayerState } from "@/models/state/playerstate.model";
+import type { Playlist } from "@/data/data";
 
 
 export const selectPlayerState = (state: AppState) => state.playerState;
@@ -34,3 +35,11 @@ export const SelectPlayerCurrentPlaylistSongs = createSelector(
   selectPlayerState,
   (state: PlayerState) => state.currentMusic.songs
 );
+
+export const SelectPlayerIsPlaylistRunning = (playlistId: string | undefined) =>
+  createSelector(
+    SelectPlayerCurrentPlaylist,
+    SelectPlayerIsPlaying,
+    (playlistState: Playlist | undefined, isPlayerPlaying: boolean) => isPlayerPlaying && playlistState?.id === playlistId
+  );
+
