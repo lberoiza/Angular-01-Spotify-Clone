@@ -32,7 +32,9 @@ export class PlayerComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.store.select(SelectPlayerIsPlaying).subscribe((isPlaying) => this.isPlaying = isPlaying);
+    this.store
+      .select(SelectPlayerIsPlaying)
+      .subscribe((isPlaying) => this.isPlaying = isPlaying);
   }
 
 
