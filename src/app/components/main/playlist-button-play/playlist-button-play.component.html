@@ -1,6 +1,6 @@
 <button (click)="playButtonPressed()"
-        class="text-black card-play-button rounded-full bg-green-500 p-4 hover:scale-105 transition hover:bg-green-400">
-  @if (isPlayingPlaylist) {
+        class="text-black rounded-full bg-green-500 p-4 hover:scale-105 transition hover:bg-green-400">
+  @if (isPlaylistRunning) {
     <icon-pause [class]="iconClassName"/>
   } @else {
     <icon-play [class]="iconClassName"/>
