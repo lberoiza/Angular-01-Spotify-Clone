@@ -14,6 +14,9 @@ export const PlayerStoreReducers = createReducer(
     return {...currentState, volume: volume}
   }),
   on(PlayerStoreActions.setIsPlaying, (currentState, {isPlaying}) => {
+    if(!currentState.currentMusic.song){
+      return currentState
+    }
     return {...currentState, isPlaying: isPlaying}
   }),
   on(PlayerStoreActions.setCurrentMusic, (currentState, {currentMusic}) => {
