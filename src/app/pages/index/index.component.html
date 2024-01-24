@@ -1,6 +1,5 @@
 <div class="relative z-10 px-6 pt-10 transition-all duration-1000 bg-green-600">
-  <!--  <Greeting />-->
-  <span> Good Morning Pirat!</span>
+  <greetings-user />
   <div class="flex flex-wrap mt-6 gap-4">
     @for (playlist of playlists; track playlist.id) {
       <playlist-card [playlist]="playlist" />
