@@ -28,6 +28,7 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('audioPlayer') audioRef!: ElementRef<HTMLAudioElement>;
 
+  protected audioPlayer!: HTMLAudioElement;
   protected isPlayerRunning: boolean = false;
   protected currentTimeSeg: number = 0;
   protected currentSongUrl: string = '';
@@ -43,6 +44,7 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
+    this.audioPlayer = this.audioRef.nativeElement;
     this.addStoreSelectorChangeVolume();
     this.addStoreSelectorCurrentPlaylist();
     this.addStoreSelectorCurrentSong();
@@ -56,7 +58,7 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
 
   private addStoreSelectorChangeVolume(): void {
     this.store.select(SelectPlayerVolume).subscribe((volume: number) => {
-      this.audioRef.nativeElement.volume = volume;
+      this.audioPlayer.volume = volume;
     });
   }
 
@@ -81,21 +83,21 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   private addListenerTimeUpdateCurrentTime(): void {
-    this.audioRef.nativeElement.addEventListener('timeupdate', () => this.onAudioTimeUpdate());
+    this.audioPlayer.addEventListener('timeupdate', () => this.onAudioTimeUpdate());
   }
 
   private removeListenerTimeUpdateCurrentTime(): void {
-    this.audioRef.nativeElement.removeEventListener('timeupdate', () => this.onAudioTimeUpdate());
+    this.audioPlayer.removeEventListener('timeupdate', () => this.onAudioTimeUpdate());
   }
 
   private onAudioTimeUpdate() {
-    this.currentTimeSeg = this.audioRef.nativeElement.currentTime;
+    this.currentTimeSeg = this.audioPlayer.currentTime;
   }
 
   private updateCurrentSongUrl(): void {
     this.currentSongUrl = getSongUrl(this.currentPlaylist, this.currentSong);
-    if (this.currentSongUrl != this.audioRef.nativeElement.src) {
-      this.audioRef.nativeElement.src = this.currentSongUrl;
+    if (this.currentSongUrl != this.audioPlayer.src) {
+      this.audioPlayer.src = this.currentSongUrl;
     }
   }
 
@@ -104,20 +106,20 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   protected onInputValueSongTrackBar() {
-    this.audioRef.nativeElement.currentTime = this.currentTimeSeg;
+    this.audioPlayer.currentTime = this.currentTimeSeg;
   }
 
   private playSong(): void {
-    this.audioRef.nativeElement.play()
+    this.audioPlayer.play()
       .then(() => {
-        this.totalSongDurationInSeg = this.audioRef.nativeElement.duration;
+        this.totalSongDurationInSeg = this.audioPlayer.duration;
         this.totalSongDurationAsTimeFormat = secondsToTimeFormat(this.totalSongDurationInSeg);
       })
       .catch(e => console.log('error playing', e));
   }
 
   private pauseSong(): void {
-    this.audioRef.nativeElement.pause()
+    this.audioPlayer.pause()
   }
 
   private playOrStopPlayer() {
