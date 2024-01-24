@@ -5,11 +5,13 @@
 
   <div class="place-content-center flex-1">
     <div class="flex justify-center flex-col items-center">
-      <button class="bg-white rounded-full hover:scale-105 p-2">
+      <button
+        class="bg-white rounded-full hover:scale-105 p-2"
+        (click)="playPauseButtonClicked()">
         @if (isPlaying) {
-          <icon-pause />
+          <icon-pause/>
         } @else {
-          <icon-play />
+          <icon-play/>
         }
       </button>
       <player-track-control/>

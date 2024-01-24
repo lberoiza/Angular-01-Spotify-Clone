@@ -7,6 +7,7 @@ import { PlayerTrackControlComponent } from "@/components/footer/player-track-co
 import { PlayerVolumeControlComponent } from "@/components/footer/player-volume-control/player-volume-control.component";
 import { SelectPlayerIsPlaying } from "@/store/player-store/playerstore.selectors";
 import { Store } from "@ngrx/store";
+import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 
 
 @Component({
@@ -38,5 +39,7 @@ export class PlayerComponent implements OnInit{
   }
 
 
-
+  protected playPauseButtonClicked() {
+    this.store.dispatch(PlayerStoreActions.setIsPlaying({ isPlaying: !this.isPlaying }));
+  }
 }
