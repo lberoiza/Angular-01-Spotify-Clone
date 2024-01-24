@@ -28,20 +28,23 @@
       "@/*": [
         "src/app/*"
       ],
-      "@/data/*": [
-        "src/data/*"
-      ],
       "@/components": [
         "src/app/components/*"
+      ],
+      "@/data/*": [
+        "src/data/*"
       ],
       "@/icons": [
         "src/app/icons/*"
       ],
-      "@/services": [
-        "src/app/services/*"
+      "@/libs": [
+        "src/app/libs/*"
       ],
       "@/models": [
         "src/app/models/*"
+      ],
+      "@/services": [
+        "src/app/services/*"
       ],
       "@/store": [
         "src/app/store/*"
