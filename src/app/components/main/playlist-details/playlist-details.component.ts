@@ -7,6 +7,7 @@ import { PlaylistApiService } from "@/services/playlist-api.service";
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
 import { Store } from "@ngrx/store";
 import { getPlaylistDuration } from "@/libs/utilities-playlist";
+import { songArtistAsString } from "@/libs/utitlities-song";
 import { take } from "rxjs";
 import {
   PlaylistDetailsMusictableComponent
@@ -81,4 +82,6 @@ export class PlaylistDetailsComponent implements OnInit {
     this.currentSong = undefined;
     this.playlistDuration = getPlaylistDuration(this.playlistSongs);
   }
+
+  protected readonly songArtistAsString = songArtistAsString;
 }

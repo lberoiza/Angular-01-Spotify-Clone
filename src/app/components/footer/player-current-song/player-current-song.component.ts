@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Song, songs } from "@/data/data";
+import { Component } from '@angular/core';
+import { songArtistAsString } from "@/libs/utitlities-song";
+import { songs } from "@/data/data";
 
 @Component({
   selector: 'player-current-song',
@@ -14,7 +15,7 @@ export class PlayerCurrentSongComponent {
   song = songs[0];
 
   getArtists(): string {
-    return this.song.artists.join(', ');
+    return songArtistAsString(this.song.artists);
   }
 
 

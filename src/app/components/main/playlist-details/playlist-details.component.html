@@ -27,7 +27,7 @@
       <div class="flex-1 flex items-end">
         <div class="text-sm text-gray-300 font-normal">
           <div [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_artists'">
-            <span>{{ playlistDetails?.artists?.join(", ") }}</span>
+            <span>{{ songArtistAsString(playlistDetails?.artists || []) }}</span>
           </div>
           <p class="mt-1">
             <span class="text-white">{{ playlistSongs.length }} canciones</span>,

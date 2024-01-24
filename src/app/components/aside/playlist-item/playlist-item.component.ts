@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { type Playlist } from "@/data/data";
-import { colors } from "@/data/colors";
 import { NgOptimizedImage } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { colors } from "@/data/colors";
+import { type Playlist } from "@/data/data";
+import { songArtistAsString } from "@/libs/utitlities-song";
 
 @Component({
   selector: 'playlist-item',
@@ -25,6 +26,6 @@ export class PlaylistItemComponent {
   };
 
   getArtists(): string {
-    return this.playlistItem.artists.join(', ');
+    return songArtistAsString(this.playlistItem.artists);
   }
 }
