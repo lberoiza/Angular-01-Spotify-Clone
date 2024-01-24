@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import type { Playlist, Song } from "@/data/data";
-import type { PlaylistDuration } from "@/libs/playlist-duration";
+import type { PlaylistDuration } from "@/libs/utilities-playlist";
 import { ActivatedRoute } from "@angular/router";
 import { AppState } from "@/store/app.state";
 import { PlaylistApiService } from "@/services/playlist-api.service";
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
 import { Store } from "@ngrx/store";
-import { getPlaylistDuration } from "@/libs/playlist-duration";
+import { getPlaylistDuration } from "@/libs/utilities-playlist";
 import { take } from "rxjs";
 import {
   PlaylistDetailsMusictableComponent
