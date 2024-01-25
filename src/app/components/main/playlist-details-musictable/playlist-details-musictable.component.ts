@@ -1,12 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { type Song } from "@/data/data";
+import type {Song } from "@/data/data";
 import { TimeComponent } from "@/icons/time.component";
-import { songArtistAsString } from "@/libs/utitlities-song";
+import {
+  PlaylistDetailsMusictableSongtitleComponent
+} from "@/components/main/playlist-details-musictable-songtitle/playlist-details-musictable-songtitle.component";
 
 @Component({
   selector: 'playlist-details-musictable',
   standalone: true,
   imports: [
+    PlaylistDetailsMusictableSongtitleComponent,
     TimeComponent
   ],
   templateUrl: './playlist-details-musictable.component.html',
@@ -14,10 +17,4 @@ import { songArtistAsString } from "@/libs/utitlities-song";
 })
 export class PlaylistDetailsMusictableComponent {
   @Input() songs: Song[] = [];
-
-  protected isCurrentSongBoolean(): boolean {
-    return false
-  }
-
-  protected readonly songArtistAsString = songArtistAsString;
 }
