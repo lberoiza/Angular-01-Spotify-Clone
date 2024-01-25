@@ -1,6 +1,6 @@
 <div
   id="playlist-container"
-  class="relative flex flex-col h-full bg-zinc-900 overflow-x-hidden"
+  class="relative flex flex-col h-full overflow-x-hidden bg-gradient-to-t from-50% from-zinc-900 via-zinc-900/90"
   [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_box'"
   [style.background-color]="playlistDetails?.color?.accent"
 >
@@ -44,8 +44,8 @@
   </div>
 
 
-  <div class="absolute inset-0 bg-gradient-to-t from-50% from-zinc-900 via-zinc-900/90 -z-[1]">
-  </div>
+<!--  <div class="absolute inset-0 bg-gradient-to-t from-50% from-zinc-900 via-zinc-900/90 -z-[1]">-->
+<!--  </div>-->
 
   <section class="p-6">
     <playlist-details-musictable [songs]="playlistSongs"/>

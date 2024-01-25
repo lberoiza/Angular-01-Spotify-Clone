@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SelectPlayerCurrentMusic } from "@/store/player-store/playerstore.selectors";
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { SelectPlayerCurrentMusic, SelectPlayerCurrentSong } from "@/store/player-store/playerstore.selectors";
 import { Store } from "@ngrx/store";
 import type { AppState } from "@/store/app.state";
 import type { Song } from "@/data/data";
@@ -12,25 +12,34 @@ import { songArtistAsString } from "@/libs/utitlities-song";
   templateUrl: './playlist-details-musictable-songtitle.component.html',
   styleUrl: './playlist-details-musictable-songtitle.component.css'
 })
-export class PlaylistDetailsMusictableSongtitleComponent implements OnInit{
+export class PlaylistDetailsMusictableSongtitleComponent implements OnInit, OnChanges{
 
   @Input()
   public song!: Song;
 
+  protected readonly songArtistAsString = songArtistAsString;
   protected isCurrentSong: boolean = false;
+  private currentSongFromStore: Song | undefined = undefined;
 
 
   constructor(private store: Store<AppState>) {
   }
 
+
   ngOnInit(): void {
-    this.store.select(SelectPlayerCurrentMusic).subscribe(currentMusic => {
-      const {song: currentSong, playlist: currentPlaylist} = currentMusic;
-      console.log("SelectPlayerCurrentMusic");
-      this.isCurrentSong = currentSong?.id === this.song.id && currentPlaylist?.albumId === this.song.albumId;
+    this.store.select(SelectPlayerCurrentSong).subscribe(currentSong => {
+      this.currentSongFromStore = currentSong;
+      this.updateIsCurrentSong();
     });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.updateIsCurrentSong();
+  }
 
-  protected readonly songArtistAsString = songArtistAsString;
+  private updateIsCurrentSong(): void {
+    this.isCurrentSong = this.currentSongFromStore?.id === this.song.id &&
+      this.currentSongFromStore?.albumId === this.song.albumId;
+  }
+
 }

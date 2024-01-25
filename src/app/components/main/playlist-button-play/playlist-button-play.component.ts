@@ -1,13 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import type { AppState } from "@/store/app.state";
-import type { Song } from "@/data/data";
+import type { Playlist, Song } from "@/data/data";
 import { PauseComponent } from "@/icons/pause.component";
 import { PlayComponent } from "@/icons/play.component";
 import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { PlaylistApiService } from "@/services/playlist-api.service";
-import { SelectPlayerIsPlaylistRunning } from "@/store/player-store/playerstore.selectors";
 import { StateManagerService } from "@/services/state-manager.service";
 import { Store } from "@ngrx/store";
+import {
+  SelectPlayerCurrentPlaylist,
+  SelectPlayerIsPlaying,
+} from "@/store/player-store/playerstore.selectors";
+
 
 @Component({
   selector: 'playlist-button-play',
@@ -23,7 +27,7 @@ import { Store } from "@ngrx/store";
     StateManagerService
   ]
 })
-export class PlaylistButtonPlayComponent implements OnInit {
+export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
 
   @Input()
   buttonSize: string = 'small';
@@ -34,6 +38,8 @@ export class PlaylistButtonPlayComponent implements OnInit {
   protected iconClassName: string = 'size-4';
   protected isPlaylistRunning: boolean = false;
 
+  protected playerIsPlaying: boolean = false;
+  protected currentPlaylist: Playlist | undefined = undefined;
 
   constructor(
     private store: Store<AppState>,
@@ -44,12 +50,32 @@ export class PlaylistButtonPlayComponent implements OnInit {
 
   ngOnInit() {
     this.iconClassName = this.buttonSize === 'small' ? 'size-4' : 'size-5';
-    this.addStoreSelectorIsPlaylistRunning();
+    this.addStoreSelectorPlayerIsPlaying();
+    this.addStoreSelectPlayerCurrentPlaylist();
   }
 
-  private addStoreSelectorIsPlaylistRunning(): void {
-    this.store.select(SelectPlayerIsPlaylistRunning(this.playlistId))
-      .subscribe((isPlaylistRunning: boolean) => this.isPlaylistRunning = isPlaylistRunning);
+  ngOnChanges(changes: SimpleChanges): void {
+    this.updateIsPlaylistRunning();
+  }
+
+  private addStoreSelectorPlayerIsPlaying(): void {
+    this.store.select(SelectPlayerIsPlaying)
+      .subscribe((isPlaying: boolean) => {
+        this.playerIsPlaying = isPlaying;
+        this.updateIsPlaylistRunning();
+      });
+  }
+
+  private addStoreSelectPlayerCurrentPlaylist(): void {
+    this.store.select(SelectPlayerCurrentPlaylist)
+      .subscribe((currentPlaylist: Playlist | undefined) => {
+        this.currentPlaylist = currentPlaylist;
+        this.updateIsPlaylistRunning();
+      });
+  }
+
+  private updateIsPlaylistRunning() {
+    this.isPlaylistRunning = this.currentPlaylist?.id === this.playlistId && this.playerIsPlaying;
   }
 
   protected playButtonPressed(): void {
@@ -69,7 +95,7 @@ export class PlaylistButtonPlayComponent implements OnInit {
   }
 
   private searchPlaylistAndSongsByPlaylistId() {
-    if(this.playlistId){
+    if (this.playlistId) {
       this.updateStoreIsPlaying(false);
       const {playlistSongs} = this.stateManagerService
         .updatePlaylistDetailsAndSongsByPlaylistId(this.playlistApiService, this.store, this.playlistId);
@@ -77,4 +103,6 @@ export class PlaylistButtonPlayComponent implements OnInit {
       this.updateStoreIsPlaying(true);
     }
   }
+
+
 }
