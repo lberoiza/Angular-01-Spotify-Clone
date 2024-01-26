@@ -1,0 +1,7 @@
+<button (click)="playPauseButtonClicked()">
+  @if(isSongPlaying){
+    <icon-pause [class]="hoverClass" />
+  } @else {
+    <icon-play [class]="hoverClass" />
+  }
+</button>
