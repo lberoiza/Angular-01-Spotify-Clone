@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { songArtistAsString } from "@/libs/utitlities-song";
-import { Song, songs } from "@/data/data";
+import { Song } from "@/data/data";
 import { Store } from "@ngrx/store";
 import { AppState } from "@/store/app.state";
 import { SelectPlayerCurrentSong } from "@/store/player-store/playerstore.selectors";
