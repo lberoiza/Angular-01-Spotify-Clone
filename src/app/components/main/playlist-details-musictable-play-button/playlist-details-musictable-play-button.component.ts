@@ -25,7 +25,7 @@ export class PlaylistDetailsMusictablePlayButtonComponent implements OnInit, OnC
   private currentSong: Song | undefined = undefined;
 
   private isPlayerPlaying: boolean = false;
-  protected hoverClass: string = 'text-white-900 hover:scale-105';
+  protected hoverClass: string = 'hover:scale-125';
   protected isSongPlaying: boolean = false;
 
 
