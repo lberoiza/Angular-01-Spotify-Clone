@@ -11,7 +11,7 @@
   </picture>
 
   <div class="flex flex-auto flex-col truncate">
-    <h4 class="text-white text-sm">
+    <h4 [class]="{'text-white text-sm': true, 'text-green-500': isPlaylistPlaying}">
       {{ playlistItem.title }}
     </h4>
 
