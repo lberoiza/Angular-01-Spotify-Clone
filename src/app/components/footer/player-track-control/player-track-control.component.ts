@@ -1,13 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import type { AppState } from "@/store/app.state";
-import type { Playlist, Song } from "@/data/data";
+import type { Song } from "@/data/data";
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from "@angular/material/slider";
 import { Store } from "@ngrx/store";
 import { getSongUrl } from "@/libs/assets";
 import { secondsToTimeFormat } from "@/libs/time-formatter";
 import {
-  SelectPlayerCurrentPlaylist,
   SelectPlayerCurrentSong,
   SelectPlayerIsPlaying,
   SelectPlayerVolume
@@ -35,7 +34,6 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   protected totalSongDurationInSeg: number = 0;
   protected totalSongDurationAsTimeFormat: String = '0:00';
 
-  protected currentPlaylist: Playlist | undefined = undefined;
   protected currentSong: Song | undefined = undefined;
 
   constructor(
@@ -46,7 +44,6 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   public ngAfterViewInit(): void {
     this.audioPlayer = this.audioRef.nativeElement;
     this.addStoreSelectorChangeVolume();
-    this.addStoreSelectorCurrentPlaylist();
     this.addStoreSelectorCurrentSong();
     this.addStoreSelectorIsPlayerPlaying();
     this.addListenerTimeUpdateCurrentTime()
@@ -59,12 +56,6 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   private addStoreSelectorChangeVolume(): void {
     this.store.select(SelectPlayerVolume).subscribe((volume: number) => {
       this.audioPlayer.volume = volume;
-    });
-  }
-
-  private addStoreSelectorCurrentPlaylist(): void {
-    this.store.select(SelectPlayerCurrentPlaylist).subscribe((currentPlaylist: Playlist | undefined) => {
-      this.currentPlaylist = currentPlaylist;
     });
   }
 
@@ -95,7 +86,7 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   private updateCurrentSongUrl(): void {
-    this.currentSongUrl = getSongUrl(this.currentPlaylist, this.currentSong);
+    this.currentSongUrl = getSongUrl(this.currentSong);
     if (this.currentSongUrl != this.audioPlayer.src) {
       this.audioPlayer.src = this.currentSongUrl;
     }

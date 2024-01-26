@@ -2,9 +2,9 @@ import type { Playlist, Song } from "@/data/data";
 
 export const MUSIC_DIRECTORY = 'assets/music';
 
-export function getSongUrl(playlist: Playlist | undefined, song: Song | undefined): string {
-  if (!playlist && !song) {
+export function getSongUrl(song: Song | undefined): string {
+  if (!song) {
     return '';
   }
-  return `${MUSIC_DIRECTORY}/${playlist?.id}/${song?.id}.mp3`
+  return `${MUSIC_DIRECTORY}/${song?.albumId}/${song?.id}.mp3`
 }
