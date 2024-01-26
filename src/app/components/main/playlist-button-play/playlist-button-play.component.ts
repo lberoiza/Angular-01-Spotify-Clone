@@ -75,13 +75,21 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
       });
   }
 
+  private isSelectedPlaylistCurrentPlaylist(): boolean {
+    return this.currentSong?.albumId === parseInt(this.playlistId ?? '0')
+  }
+
   private updateIsPlaylistRunning() {
-    this.isPlaylistRunning = this.currentSong?.albumId === parseInt(this.playlistId ?? '0') && this.playerIsPlaying;
+    this.isPlaylistRunning = this.isSelectedPlaylistCurrentPlaylist() && this.playerIsPlaying;
   }
 
   protected playButtonPressed(): void {
-    if (this.isPlaylistRunning) {
-      this.updateStoreIsPlaying(false);
+    if(this.playlistId === undefined) {
+      return;
+    }
+
+    if ( this.isSelectedPlaylistCurrentPlaylist()) {
+      this.updateStoreIsPlaying(!this.playerIsPlaying);
       return;
     }
     this.searchPlaylistAndSongsByPlaylistId();
