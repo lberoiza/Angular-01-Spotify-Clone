@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import type { AppState } from "@/store/app.state";
-import type { Playlist, Song } from "@/data/data";
+import type { Song } from "@/data/data";
 import { PauseComponent } from "@/icons/pause.component";
 import { PlayComponent } from "@/icons/play.component";
 import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
@@ -8,7 +8,7 @@ import { PlaylistApiService } from "@/services/playlist-api.service";
 import { StateManagerService } from "@/services/state-manager.service";
 import { Store } from "@ngrx/store";
 import {
-  SelectPlayerCurrentPlaylist,
+  SelectPlayerCurrentSong,
   SelectPlayerIsPlaying,
 } from "@/store/player-store/playerstore.selectors";
 
@@ -39,7 +39,8 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
   protected isPlaylistRunning: boolean = false;
 
   protected playerIsPlaying: boolean = false;
-  protected currentPlaylist: Playlist | undefined = undefined;
+  protected currentSong: Song | undefined = undefined;
+
 
   constructor(
     private store: Store<AppState>,
@@ -51,7 +52,7 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.iconClassName = this.buttonSize === 'small' ? 'size-4' : 'size-5';
     this.addStoreSelectorPlayerIsPlaying();
-    this.addStoreSelectPlayerCurrentPlaylist();
+    this.addStoreSelectPlayerCurrentSong();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -66,16 +67,16 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
       });
   }
 
-  private addStoreSelectPlayerCurrentPlaylist(): void {
-    this.store.select(SelectPlayerCurrentPlaylist)
-      .subscribe((currentPlaylist: Playlist | undefined) => {
-        this.currentPlaylist = currentPlaylist;
+  private addStoreSelectPlayerCurrentSong(): void {
+    this.store.select(SelectPlayerCurrentSong)
+      .subscribe((currentSong: Song | undefined) => {
+        this.currentSong = currentSong;
         this.updateIsPlaylistRunning();
       });
   }
 
   private updateIsPlaylistRunning() {
-    this.isPlaylistRunning = this.currentPlaylist?.id === this.playlistId && this.playerIsPlaying;
+    this.isPlaylistRunning = this.currentSong?.albumId === parseInt(this.playlistId ?? '0') && this.playerIsPlaying;
   }
 
   protected playButtonPressed(): void {
