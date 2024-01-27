@@ -6,5 +6,5 @@ export function getSongUrl(song: Song | undefined): string {
   if (!song) {
     return '';
   }
-  return `${MUSIC_DIRECTORY}/${song?.albumId}/${song?.id}.mp3`
+  return `${MUSIC_DIRECTORY}/${song?.albumId}/${song?.filename}`
 }
