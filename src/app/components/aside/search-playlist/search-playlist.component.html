@@ -16,8 +16,14 @@
       <menu-item href="/" label="Tu biblioteca">
         <icon-library/>
       </menu-item>
-      @for (playlist of playlists; track playlist.id) {
-        <playlist-item [playlistItem]="playlist"/>
+      @if (loading) {
+        @for (n of [1,2,3]; track n){
+          <loading-playlist-item/>
+        }
+      } @else {
+        @for (playlist of playlists; track playlist.id) {
+          <playlist-item [playlistItem]="playlist"/>
+        }
       }
     </ul>
   </div>
