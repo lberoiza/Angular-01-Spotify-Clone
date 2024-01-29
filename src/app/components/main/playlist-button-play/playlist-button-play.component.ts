@@ -7,10 +7,12 @@ import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { PlaylistApiService } from "@/services/playlist-api.service";
 import { StateManagerService } from "@/services/state-manager.service";
 import { Store } from "@ngrx/store";
+import { getPlaylistInfoById } from "@/api/get-info-playlist";
 import {
   SelectPlayerCurrentSong,
   SelectPlayerIsPlaying,
 } from "@/store/player-store/playerstore.selectors";
+import { take } from "rxjs";
 
 
 @Component({
@@ -44,8 +46,6 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
 
   constructor(
     private store: Store<AppState>,
-    private stateManagerService: StateManagerService,
-    private playlistApiService: PlaylistApiService
   ) {
   }
 
@@ -84,11 +84,11 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
   }
 
   protected playButtonPressed(): void {
-    if(this.playlistId === undefined) {
+    if (this.playlistId === undefined) {
       return;
     }
 
-    if ( this.isSelectedPlaylistCurrentPlaylist()) {
+    if (this.isSelectedPlaylistCurrentPlaylist()) {
       this.updateStoreIsPlaying(!this.playerIsPlaying);
       return;
     }
@@ -106,12 +106,13 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
   private searchPlaylistAndSongsByPlaylistId() {
     if (this.playlistId) {
       this.updateStoreIsPlaying(false);
-      const {playlistSongs} = this.stateManagerService
-        .updatePlaylistDetailsAndSongsByPlaylistId(this.playlistApiService, this.store, this.playlistId);
-      this.updateStoreCurrentSong(playlistSongs[0]);
-      this.updateStoreIsPlaying(true);
+      getPlaylistInfoById(this.playlistId)
+        .pipe(take(1))
+        .subscribe(response => {
+          this.store.dispatch(PlayerStoreActions.setCurrentPlaylist({playlist: response.playlist}));
+          this.store.dispatch(PlayerStoreActions.setCurrentSong({song: response.songs[0]}));
+          this.updateStoreIsPlaying(true);
+        })
     }
   }
-
-
 }
