@@ -4,8 +4,6 @@ import type { Song } from "@/data/data";
 import { PauseComponent } from "@/icons/pause.component";
 import { PlayComponent } from "@/icons/play.component";
 import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
-import { PlaylistApiService } from "@/services/playlist-api.service";
-import { StateManagerService } from "@/services/state-manager.service";
 import { Store } from "@ngrx/store";
 import { getPlaylistInfoById } from "@/api/get-info-playlist";
 import {
@@ -24,10 +22,7 @@ import { take } from "rxjs";
   ],
   templateUrl: './playlist-button-play.component.html',
   styleUrl: './playlist-button-play.component.css',
-  providers: [
-    PlaylistApiService,
-    StateManagerService
-  ]
+  providers: []
 })
 export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
 

@@ -5,7 +5,6 @@ import { ActivatedRoute } from "@angular/router";
 import { AppState } from "@/store/app.state";
 import { LoadingImageComponent } from "@/components/common/loading-components/loading-image/loading-image.component";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PlaylistApiService } from "@/services/playlist-api.service";
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
 import {
   PlaylistDetailsMusictableComponent
@@ -29,9 +28,7 @@ import { take } from "rxjs";
   ],
   templateUrl: './playlist-details.component.html',
   styleUrl: './playlist-details.component.css',
-  providers: [
-    PlaylistApiService,
-  ]
+  providers: []
 })
 export class PlaylistDetailsComponent implements OnInit {
   protected loading: boolean = true;
