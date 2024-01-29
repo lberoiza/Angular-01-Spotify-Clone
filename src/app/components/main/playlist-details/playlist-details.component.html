@@ -5,13 +5,17 @@
   [style.background-color]="playlistDetails?.color?.accent"
 >
   <header class="flex flex-row gap-8 px-6 mt-12">
-    <picture class="aspect-square w-52 h-52 flex-none">
-      <img
-        [src]="playlistDetails?.cover"
-        alt="Cover of {{playlistDetails?.title}}"
-        class="object-cover w-full h-auto shadow-lg"
-        [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_image'"
-      />
+    <picture class="aspect-square w-52 h-52 flex-none"
+             [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_image'">
+      @if (loading) {
+        <loading-image/>
+      } @else {
+        <img
+          [src]="playlistDetails?.cover"
+          alt="Cover of {{playlistDetails?.title}}"
+          class="object-cover w-full h-auto shadow-lg"
+        />
+      }
     </picture>
 
     <div class="flex flex-col justify-between">
@@ -39,11 +43,16 @@
     </div>
   </header>
 
-  <div class="pl-6 pt-6">
-    <playlist-button-play buttonSize="large" [playlistId]="playlistDetails?.id"/>
-  </div>
 
-  <section class="p-6">
-    <playlist-details-musictable [songs]="playlistSongs"/>
-  </section>
+  @if (!loading) {
+    <div class="pl-6 pt-6">
+      <playlist-button-play buttonSize="large" [playlistId]="playlistDetails?.id"/>
+    </div>
+
+    <section class="p-6">
+      <playlist-details-musictable [songs]="playlistSongs"/>
+    </section>
+  }
+
+
 </div>

@@ -3,19 +3,19 @@ import type { Playlist, Song } from "@/data/data";
 import type { PlaylistDuration } from "@/libs/utilities-playlist";
 import { ActivatedRoute } from "@angular/router";
 import { AppState } from "@/store/app.state";
+import { LoadingImageComponent } from "@/components/common/loading-components/loading-image/loading-image.component";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PlaylistApiService } from "@/services/playlist-api.service";
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
-import { Store } from "@ngrx/store";
-import { getPlaylistDuration } from "@/libs/utilities-playlist";
-import { songArtistAsString } from "@/libs/utitlities-song";
-import { take } from "rxjs";
 import {
   PlaylistDetailsMusictableComponent
 } from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
-import {
-  SelectPlayerCurrentMusic,
-  SelectPlayerCurrentPlaylist,
-} from "@/store/player-store/playerstore.selectors";
+import { Store } from "@ngrx/store";
+import { colors } from "@/data/colors";
+import { getPlaylistDuration } from "@/libs/utilities-playlist";
+import { getPlaylistInfoById } from "@/api/get-info-playlist";
+import { songArtistAsString } from "@/libs/utitlities-song";
+import { take } from "rxjs";
 
 
 @Component({
@@ -23,7 +23,9 @@ import {
   standalone: true,
   imports: [
     PlaylistButtonPlayComponent,
-    PlaylistDetailsMusictableComponent
+    PlaylistDetailsMusictableComponent,
+    MatProgressSpinnerModule,
+    LoadingImageComponent
   ],
   templateUrl: './playlist-details.component.html',
   styleUrl: './playlist-details.component.css',
@@ -32,6 +34,7 @@ import {
   ]
 })
 export class PlaylistDetailsComponent implements OnInit {
+  protected loading: boolean = true;
   protected playlistDetails: Playlist | undefined = undefined;
   protected playlistSongs: Song[] = [];
   protected currentSong: Song | undefined = undefined;
@@ -41,47 +44,44 @@ export class PlaylistDetailsComponent implements OnInit {
     seconds: 0
   }
 
+  protected readonly songArtistAsString = songArtistAsString;
+
   constructor(
     private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    private playlistApiService: PlaylistApiService) {
+    private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       const paramPlaylistId = params['id'];
-      this.setPlaylistDetailsByPlaylistId(paramPlaylistId);
+      this.loading = true;
+      this.setLoadingData(paramPlaylistId);
+      this.getPlaylistDetailsAndSongFromApi(paramPlaylistId);
     });
   }
 
-  private setPlaylistDetailsByPlaylistId(paramPlaylistId: string): void {
-    this.store.select(SelectPlayerCurrentPlaylist)
-      .subscribe(playlistDetailsOnStore => {
-        if (playlistDetailsOnStore?.id === paramPlaylistId) {
-          this.getCurrentMusicFromStore();
-        } else {
-          this.getPlaylistDetailsAndSongFromApi(paramPlaylistId);
-        }
-      });
-  }
-
-  private getCurrentMusicFromStore() {
-    this.store.select(SelectPlayerCurrentMusic)
-      .pipe(take(1))
-      .subscribe((currentMusic) => {
-        this.playlistDetails = currentMusic.playlist;
-        this.playlistSongs = currentMusic.songs;
-        this.currentSong = currentMusic.song;
-        this.playlistDuration = getPlaylistDuration(this.playlistSongs);
-      });
-  }
-
   private getPlaylistDetailsAndSongFromApi(playlistId: string) {
-    this.playlistDetails = this.playlistApiService.getPlaylistById(playlistId);
-    this.playlistSongs = this.playlistApiService.getSongsByPlaylist(this.playlistDetails);
-    this.currentSong = undefined;
-    this.playlistDuration = getPlaylistDuration(this.playlistSongs);
+    getPlaylistInfoById(playlistId)
+      .pipe(take(1))
+      .subscribe(response => {
+        this.playlistDetails = response.playlist;
+        this.playlistSongs = response.songs;
+        this.currentSong = undefined;
+        this.playlistDuration = getPlaylistDuration(this.playlistSongs);
+        this.loading = false;
+      })
   }
 
-  protected readonly songArtistAsString = songArtistAsString;
+  setLoadingData(playlistId: string) {
+    this.playlistDetails = {
+      id: playlistId,
+      albumId: parseInt(playlistId),
+      title: 'Loading...',
+      color: colors.gray,
+      cover: '',
+      artists: []
+    }
+  }
+
+
 }
