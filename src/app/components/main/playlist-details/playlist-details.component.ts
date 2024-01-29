@@ -3,18 +3,19 @@ import type { Playlist, Song } from "@/data/data";
 import type { PlaylistDuration } from "@/libs/utilities-playlist";
 import { ActivatedRoute } from "@angular/router";
 import { AppState } from "@/store/app.state";
+import { ApplicationApiMock } from "@/service/ApplicationApiMock";
 import { LoadingImageComponent } from "@/components/common/loading-components/loading-image/loading-image.component";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
-import {
-  PlaylistDetailsMusictableComponent
-} from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
 import { Store } from "@ngrx/store";
 import { colors } from "@/data/colors";
 import { getPlaylistDuration } from "@/libs/utilities-playlist";
-import { getPlaylistInfoById } from "@/api/get-info-playlist";
 import { songArtistAsString } from "@/libs/utitlities-song";
 import { take } from "rxjs";
+import {
+  PlaylistDetailsMusictableComponent
+} from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
+
 
 
 @Component({
@@ -28,7 +29,9 @@ import { take } from "rxjs";
   ],
   templateUrl: './playlist-details.component.html',
   styleUrl: './playlist-details.component.css',
-  providers: []
+  providers: [
+    ApplicationApiMock
+  ]
 })
 export class PlaylistDetailsComponent implements OnInit {
   protected loading: boolean = true;
@@ -45,7 +48,9 @@ export class PlaylistDetailsComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private applicationApi: ApplicationApiMock
+    ) {
   }
 
   ngOnInit(): void {
@@ -58,7 +63,7 @@ export class PlaylistDetailsComponent implements OnInit {
   }
 
   private getPlaylistDetailsAndSongFromApi(playlistId: string) {
-    getPlaylistInfoById(playlistId)
+    this.applicationApi.getPlaylistInfoById(playlistId)
       .pipe(take(1))
       .subscribe(response => {
         this.playlistDetails = response.playlist;
