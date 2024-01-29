@@ -1,0 +1,24 @@
+<li>
+  <a
+    routerLink="/playlist/{{ playlistItem.id }}"
+    class="playlist-item flex relative p-2 overflow-hidden items-center gap-5 rounded-md hover:bg-zinc-800"
+  >
+    <picture class="h-12 w-12 flex-none">
+      <img
+        [src]="playlistItem.cover"
+        alt="Cover of {{ playlistItem.title }} by {{ getArtists() }}"
+        class="object-cover w-full h-auto rounded-md"
+      />
+    </picture>
+
+    <div class="flex flex-auto flex-col truncate">
+      <h4 [class]="{'text-white text-sm': true, 'text-green-500': isPlaylistPlaying}">
+        {{ playlistItem.title }}
+      </h4>
+
+      <span class="text-xs text-gray-400">
+      {{ getArtists() }}
+    </span>
+    </div>
+  </a>
+</li>

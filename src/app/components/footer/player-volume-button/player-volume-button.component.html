@@ -1,0 +1,11 @@
+<button class="opacity-70 hover:opacity-100 transition" (click)="volumeButtonClicked()">
+  @if (isVolumeFull()) {
+    <icon-volume-full/>
+  } @else if (isVolumeMedium()) {
+    <icon-volume-medium/>
+  } @else if (isVolumeLow()) {
+    <icon-volume-low/>
+  } @else {
+    <icon-volume-silenced/>
+  }
+</button>

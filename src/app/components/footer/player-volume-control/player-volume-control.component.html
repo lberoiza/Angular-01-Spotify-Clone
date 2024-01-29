@@ -1,0 +1,6 @@
+<div class="flex justify-center items-center gap-x-2 text-white mr-1">
+  <app-player-volume-button/>
+  <mat-slider min="0" max="{{maxVolume}}" step="{{volumeStep}}">
+    <input matSliderThumb [(ngModel)]="currentVolume" (input)="updateCurrentVolumeOnStore()" #volumeSlider>
+  </mat-slider>
+</div>
