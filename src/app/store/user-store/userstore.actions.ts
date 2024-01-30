@@ -7,6 +7,7 @@ export const UserStoreActions = createActionGroup({
   events: {
     'Set Playlists': props<{ playlists: Playlist[] }>(),
     'Set Username': props<{ username: string }>(),
+    'Set Is Loading Playlist Data': props<{ isLoadingPlaylistData: boolean }>(),
   },
 });
 
