@@ -4,35 +4,35 @@ import type { PlayerState } from "@/models/state/playerstate.model";
 import type { Playlist } from "@/data/data";
 
 
-export const selectPlayerState = (state: AppState) => state.playerState;
+export const SelectPlayerState = (state: AppState) => state.playerState;
 
 export const SelectPlayerIsPlaying = createSelector(
-  selectPlayerState,
+  SelectPlayerState,
   (state: PlayerState) => state.isPlaying
 );
 
 export const SelectPlayerCurrentMusic = createSelector(
-  selectPlayerState,
+  SelectPlayerState,
   (state: PlayerState) => state.currentMusic
 );
 
 export const SelectPlayerVolume = createSelector(
-  selectPlayerState,
+  SelectPlayerState,
   (state: PlayerState) => state.volume
 );
 
 export const SelectPlayerCurrentSong = createSelector(
-  selectPlayerState,
+  SelectPlayerState,
   (state: PlayerState) => state.currentMusic.song
 );
 
 export const SelectPlayerCurrentPlaylist = createSelector(
-  selectPlayerState,
+  SelectPlayerState,
   (state: PlayerState) => state.currentMusic.playlist
 );
 
 export const SelectPlayerCurrentPlaylistSongs = createSelector(
-  selectPlayerState,
+  SelectPlayerState,
   (state: PlayerState) => state.currentMusic.songs
 );
 

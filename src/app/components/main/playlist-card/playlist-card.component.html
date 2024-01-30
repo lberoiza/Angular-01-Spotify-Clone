@@ -1,31 +1,56 @@
 <article
-  class="group relative hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md ransi transition-all duration-300">
+  class="group relative hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md transition-all duration-300">
   <div
-    class="absolute right-4 bottom-20 translate-y-4 transition-all duration-500 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 z-10">
-    <playlist-button-play [playlistId]="playlist.id" />
+    [class]="{
+    'absolute': true,
+    'right-4': true,
+    'bottom-20': true,
+    'transition-all': true,
+    'duration-500': true,
+    'group-hover:translate-y-0': true,
+    'group-hover:opacity-100': true,
+    'z-10': true,
+    'opacity-0': !isPlaylistPlaying,
+    'translate-y-4': !isPlaylistPlaying,
+    'translate-y-1': isPlaylistPlaying,
+    }">
+    <playlist-button-play [playlistId]="playlist.id"/>
   </div>
+
 
   <a routerLink="/playlist/{{playlist.id}}"
      class="playlist-item transition-all duration-300 flex relative p-2 overflow-hidden gap-2 pb-6 rounded-md w-44 flex-col"
      [style.view-transition-name]="'playlist_' + playlist.id +'_box'"
   >
     <picture class="aspect-square w-full h-auto flex-none">
-      <img [src]="playlist.cover" alt="Cover of {{playlist.title}} by {{getArtists()}}"
+      <img [src]="playlist.cover" alt="Cover of {{playlist.title}} by {{ songArtistAsString(this.playlist.artists) }}"
            class="object-cover w-full h-full rounded-md"
            [style.view-transition-name]="'playlist_' + playlist.id +'_image'"
       />
     </picture>
 
     <div class="flex flex-auto flex-col px-2">
-      <h4 class="text-white text-sm" [style.view-transition-name]="'playlist_' + playlist.id +'_title'">
+      <h4
+        [class]="{
+          'text-sm': true,
+          'text-white': !isPlaylistPlaying,
+          'text-green-500': isPlaylistPlaying
+          }"
+        [style.view-transition-name]="'playlist_' + playlist.id +'_title'">
         {{ playlist.title }}
       </h4>
 
       <span
-        class="text-xs text-gray-400" [style.view-transition-name]="'playlist_' + playlist.id +'_artists'">
-        {{ getArtists() }}
+        class="text-xs text-gray-400 truncate w-[80%]" [style.view-transition-name]="'playlist_' + playlist.id +'_artists'">
+        {{ songArtistAsString(this.playlist.artists) }}
       </span>
     </div>
   </a>
+  @if(isPlaylistPlaying){
+    <div class="absolute bottom-[25px] right-[8px]">
+      <equalizer></equalizer>
+    </div>
+  }
+
 </article>
 
