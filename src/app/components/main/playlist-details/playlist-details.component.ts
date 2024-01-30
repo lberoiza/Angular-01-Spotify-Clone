@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import type { Playlist, Song } from "@/data/data";
 import type { PlaylistDuration } from "@/libs/utilities-playlist";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AppState } from "@/store/app.state";
 import { ApplicationApiMock } from "@/service/ApplicationApiMock";
 import { LoadingImageComponent } from "@/components/common/loading-components/loading-image/loading-image.component";
@@ -59,6 +59,7 @@ export class PlaylistDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
+    private Router: Router,
     private applicationApi: ApplicationApiMock
   ) {
   }
@@ -74,9 +75,7 @@ export class PlaylistDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-
   ngOnInit(): void {
-    console.log('PlaylistDetailsComponent ngOnInit');
     this.activatedRoute.params.subscribe(params => {
       this.playlistId = params['id'];
       this.loadPlaylistDetails()
@@ -135,12 +134,9 @@ export class PlaylistDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
-  // redirect to home if playlist not found
-  // redirect using javascript to reload information from server
-  // about user playlists
   private redirectToHome() {
-    window.location.href = '/';
+    this.Router.navigate(['/'])
+      .catch(e => console.error(e));
   }
-
 
 }
