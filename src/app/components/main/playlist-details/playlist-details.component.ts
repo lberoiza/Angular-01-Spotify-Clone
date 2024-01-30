@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import type { Playlist, Song } from "@/data/data";
 import type { PlaylistDuration } from "@/libs/utilities-playlist";
 import { ActivatedRoute } from "@angular/router";
@@ -8,14 +8,17 @@ import { LoadingImageComponent } from "@/components/common/loading-components/lo
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component";
 import { Store } from "@ngrx/store";
+import { Subscription, take } from "rxjs";
 import { colors } from "@/data/colors";
 import { getPlaylistDuration } from "@/libs/utilities-playlist";
 import { songArtistAsString } from "@/libs/utitlities-song";
-import { take } from "rxjs";
 import {
   PlaylistDetailsMusictableComponent
 } from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
-
+import {
+  SelectUserPlaylists,
+  SelectUserShouldShowLoadingPlaylistComponents
+} from "@/store/user-store/userstore.selectors";
 
 
 @Component({
@@ -33,8 +36,13 @@ import {
     ApplicationApiMock
   ]
 })
-export class PlaylistDetailsComponent implements OnInit {
-  protected loading: boolean = true;
+export class PlaylistDetailsComponent implements OnInit, OnDestroy {
+  private observerStoreSelectUserPlaylist!: Subscription;
+  private observerSelectUserShouldShowLoadingPlaylist!: Subscription;
+
+
+  protected isLoading: boolean = false;
+  protected userPlaylists: Playlist[] = [];
   protected playlistDetails: Playlist | undefined = undefined;
   protected playlistSongs: Song[] = [];
   protected currentSong: Song | undefined = undefined;
@@ -44,45 +52,94 @@ export class PlaylistDetailsComponent implements OnInit {
     seconds: 0
   }
 
+  protected playlistId: string = '0';
+
   protected readonly songArtistAsString = songArtistAsString;
 
   constructor(
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
     private applicationApi: ApplicationApiMock
-    ) {
+  ) {
   }
 
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      const paramPlaylistId = params['id'];
-      this.loading = true;
-      this.setLoadingData(paramPlaylistId);
-      this.getPlaylistDetailsAndSongFromApi(paramPlaylistId);
-    });
-  }
-
-  private getPlaylistDetailsAndSongFromApi(playlistId: string) {
-    this.applicationApi.getPlaylistInfoById(playlistId)
-      .pipe(take(1))
-      .subscribe(response => {
-        this.playlistDetails = response.playlist;
-        this.playlistSongs = response.songs;
-        this.currentSong = undefined;
-        this.playlistDuration = getPlaylistDuration(this.playlistSongs);
-        this.loading = false;
-      })
-  }
-
-  setLoadingData(playlistId: string) {
+  private setLoadingData() {
     this.playlistDetails = {
-      id: playlistId,
-      albumId: parseInt(playlistId),
+      id: this.playlistId,
+      albumId: parseInt(this.playlistId),
       title: 'Loading...',
       color: colors.gray,
       cover: '',
       artists: []
     }
+  }
+
+
+  ngOnInit(): void {
+    console.log('PlaylistDetailsComponent ngOnInit');
+    this.activatedRoute.params.subscribe(params => {
+      this.playlistId = params['id'];
+      this.loadPlaylistDetails()
+      this.loadPlaylistSongs();
+    });
+    this.observerStoreSelectUserPlaylist = this.addStoreSelectUserPlaylist();
+    this.observerSelectUserShouldShowLoadingPlaylist = this.addSelectUserShouldShowLoadingPlaylistComponents();
+  }
+
+  ngOnDestroy(): void {
+    this.observerSelectUserShouldShowLoadingPlaylist.unsubscribe();
+    this.observerStoreSelectUserPlaylist.unsubscribe();
+  }
+
+  private addSelectUserShouldShowLoadingPlaylistComponents() {
+    return this.store.select(SelectUserShouldShowLoadingPlaylistComponents).subscribe(shouldShowLoadingComponent => {
+      this.isLoading = shouldShowLoadingComponent;
+      if (!this.isLoading) {
+        this.findPlaylistDetailsOrRedirectToHome();
+      }
+    });
+  }
+
+  private addStoreSelectUserPlaylist() {
+    return this.store.select(SelectUserPlaylists).subscribe(playlists => {
+      this.userPlaylists = playlists;
+    });
+  }
+
+  private loadPlaylistDetails() {
+    this.playlistDetails = this.userPlaylists.find(playlist => playlist.id === this.playlistId);
+  }
+
+  private loadPlaylistSongs() {
+    this.playlistSongs = [];
+    if (this.playlistDetails) {
+      this.getPlaylistSongsFromApi();
+    }
+  }
+
+  private findPlaylistDetailsOrRedirectToHome() {
+    this.loadPlaylistDetails();
+    if (!this.playlistDetails) {
+      this.redirectToHome();
+    }
+    this.loadPlaylistSongs();
+  }
+
+  private getPlaylistSongsFromApi() {
+    this.applicationApi.getPlaylistInfoById(this.playlistId)
+      .pipe(take(1))
+      .subscribe(response => {
+        this.playlistSongs = response.songs;
+        this.currentSong = undefined;
+        this.playlistDuration = getPlaylistDuration(this.playlistSongs);
+      })
+  }
+
+  // redirect to home if playlist not found
+  // redirect using javascript to reload information from server
+  // about user playlists
+  private redirectToHome() {
+    window.location.href = '/';
   }
 
 

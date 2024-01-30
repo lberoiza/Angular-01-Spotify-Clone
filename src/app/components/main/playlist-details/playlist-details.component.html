@@ -7,7 +7,7 @@
   <header class="flex flex-row gap-8 px-6 mt-12">
     <picture class="aspect-square w-52 h-52 flex-none"
              [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_image'">
-      @if (loading) {
+      @if (isLoading) {
         <loading-image/>
       } @else {
         <img
@@ -44,7 +44,7 @@
   </header>
 
 
-  @if (!loading) {
+  @if (!isLoading) {
     <div class="pl-6 pt-6">
       <playlist-button-play buttonSize="large" [playlistId]="playlistDetails?.id"/>
     </div>
