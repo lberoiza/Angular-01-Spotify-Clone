@@ -9,7 +9,6 @@ import {
   LoadingPlaylistCardComponent
 } from "@/components/common/loading-components/loading-playlist-card/loading-playlist-card.component";
 import {
-  SelectUserIsLoadingPlaylistData,
   SelectUserPlaylists,
   SelectUserShouldShowLoadingPlaylistComponents
 } from "@/store/user-store/userstore.selectors";
@@ -39,16 +38,21 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addStoreSelectUserShouldShowLoadingPlaylistComponents();
+    this.addStoreSelectUserPlaylist();
+  }
 
+
+  private addStoreSelectUserShouldShowLoadingPlaylistComponents() {
     this.store.select(SelectUserShouldShowLoadingPlaylistComponents).subscribe(shouldShowLoadingComponent => {
       this.shouldShowLoadingComponents = shouldShowLoadingComponent;
     })
+  }
 
-    this.store.select(SelectUserPlaylists)
-      .subscribe(playlists => {
-        this.playlists = playlists
-      });
-
+  private addStoreSelectUserPlaylist() {
+    this.store.select(SelectUserPlaylists).subscribe(playlists => {
+      this.playlists = playlists;
+    });
   }
 
 
