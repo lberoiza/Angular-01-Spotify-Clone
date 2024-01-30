@@ -1,21 +1,29 @@
-import { Component, Input } from '@angular/core';
-import { Playlist } from "@/data/data";
+import { Component, Input, OnInit } from '@angular/core';
+import type { AppState } from "@/store/app.state";
+import type { Playlist } from "@/data/data";
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component" ;
 import { RouterLink } from "@angular/router";
+import { Store } from "@ngrx/store";
 import { colors } from "@/data/colors";
 import { songArtistAsString } from "@/libs/utitlities-song";
+import { SelectPlayerState } from "@/store/player-store/playerstore.selectors";
+import { EqualizerComponent } from "@/components/common/equalizer/equalizer.component";
 
 @Component({
   selector: 'playlist-card',
   standalone: true,
   imports: [
     RouterLink,
-    PlaylistButtonPlayComponent
+    PlaylistButtonPlayComponent,
+    EqualizerComponent
   ],
   templateUrl: './playlist-card.component.html',
   styleUrl: './playlist-card.component.css'
 })
-export class PlaylistCardComponent {
+export class PlaylistCardComponent implements OnInit {
+
+  protected readonly songArtistAsString = songArtistAsString;
+
   @Input() playlist: Playlist = {
     id: '0',
     albumId: 0,
@@ -25,9 +33,21 @@ export class PlaylistCardComponent {
     artists: [],
   };
 
+  protected isPlaylistPlaying: boolean = false;
 
-  getArtists(): string {
-    return songArtistAsString(this.playlist.artists);
+
+  constructor(
+    private store: Store<AppState>
+  ) {
   }
+
+  ngOnInit(): void {
+
+    this.store.select(SelectPlayerState).subscribe(playerState => {
+      this.isPlaylistPlaying = playerState.isPlaying && playerState.currentMusic.song?.albumId === this.playlist.albumId
+    })
+  }
+
+
 
 }
