@@ -1,7 +1,5 @@
 import { createSelector } from "@ngrx/store";
 import type { AppState } from "@/store/app.state";
-import type { PlayerState } from "@/models/state/playerstate.model";
-import type { Playlist } from "@/data/data";
 import { UserState } from "@/models/state/userstate.model";
 
 
@@ -17,3 +15,12 @@ export const SelectUserUsername = createSelector(
   (state: UserState) => state.username
 );
 
+export const SelectUserIsLoadingPlaylistData = createSelector(
+  selectUserState,
+  (state: UserState) => state.isLoadingPlaylistData
+);
+
+export const SelectUserShouldShowLoadingPlaylistComponents = createSelector(
+  selectUserState,
+  (state: UserState) => state.isLoadingPlaylistData && state.playlists.length === 0
+);

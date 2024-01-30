@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import type { AppState } from "@/store/app.state";
 import type { Playlist } from "@/data/data";
+import { ApplicationApiMock } from "@/service/ApplicationApiMock";
 import { GreetingsUserComponent } from "@/components/main/greetings-user/greetings-user.component";
 import { PlaylistCardComponent } from "@/components/main/playlist-card/playlist-card.component";
-import { ApplicationApiMock } from "@/service/ApplicationApiMock";
+import { Store } from "@ngrx/store";
 import {
   LoadingPlaylistCardComponent
 } from "@/components/common/loading-components/loading-playlist-card/loading-playlist-card.component";
+import {
+  SelectUserPlaylists,
+  SelectUserShouldShowLoadingPlaylistComponents
+} from "@/store/user-store/userstore.selectors";
 
 @Component({
   selector: 'index',
@@ -23,22 +29,30 @@ import {
 })
 export class IndexComponent implements OnInit {
 
-  protected loading: boolean = false;
+  protected shouldShowLoadingComponents: boolean = false;
   protected playlists: Playlist[] = [];
 
-  constructor(private applicationApi: ApplicationApiMock) {
+  constructor(
+    private store: Store<AppState>
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.addStoreSelectUserShouldShowLoadingPlaylistComponents();
+    this.addStoreSelectUserPlaylist();
   }
 
 
-  ngOnInit(): void {
-    this.loading = true;
-    this.applicationApi.getAllPlaylists()
-      .subscribe(
-        (playlists: Playlist[]) => {
-          this.playlists = playlists;
-          this.loading = false;
-        }
-      );
+  private addStoreSelectUserShouldShowLoadingPlaylistComponents() {
+    this.store.select(SelectUserShouldShowLoadingPlaylistComponents).subscribe(shouldShowLoadingComponent => {
+      this.shouldShowLoadingComponents = shouldShowLoadingComponent;
+    })
+  }
+
+  private addStoreSelectUserPlaylist() {
+    this.store.select(SelectUserPlaylists).subscribe(playlists => {
+      this.playlists = playlists;
+    });
   }
 
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { AppState } from "@/store/app.state";
+import { SelectUserUsername } from "@/store/user-store/userstore.selectors";
 
 @Component({
   selector: 'greetings-user',
@@ -9,11 +12,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GreetingsUserComponent implements OnInit {
 
-  private currentTime: Date = new Date()
-  private currentHour: number = this.currentTime.getHours()
-  protected greeting: string = ""
+  private currentTime: Date = new Date();
+  private currentHour: number = this.currentTime.getHours();
+  protected greeting: string = "";
+  protected username: string = "";
+
+  constructor(private store: Store<AppState>) {
+  }
 
   ngOnInit(): void {
+    this.store.select(SelectUserUsername).subscribe(username => this.username = username);
     this.setGreeting();
   }
 
@@ -27,5 +35,12 @@ export class GreetingsUserComponent implements OnInit {
     }
   }
 
+
+  protected getGreeting(): string {
+    if(this.username !== "") {
+      return `${this.greeting}, ${this.username}`;
+    }
+    return this.greeting;
+  }
 
 }

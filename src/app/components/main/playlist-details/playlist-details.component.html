@@ -7,7 +7,7 @@
   <header class="flex flex-row gap-8 px-6 mt-12">
     <picture class="aspect-square w-52 h-52 flex-none"
              [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_image'">
-      @if (loading) {
+      @if (isLoading) {
         <loading-image/>
       } @else {
         <img
@@ -34,9 +34,10 @@
             <span>{{ songArtistAsString(playlistDetails?.artists || []) }}</span>
           </div>
           <p class="mt-1">
-            <span class="text-white">{{ playlistSongs.length }} canciones</span>,
-            {{ playlistDuration.hours }} horas, {{ playlistDuration.minutes }} minutos y {{ playlistDuration.seconds }}
-            segundos aproximadamente
+            <span class="text-white">{{ playlistSongs.length }} canciones.</span>
+            <span>
+              {{ showPlaylistDurationAsString() }}
+            </span>
           </p>
         </div>
       </div>
@@ -44,7 +45,7 @@
   </header>
 
 
-  @if (!loading) {
+  @if (!isLoading) {
     <div class="pl-6 pt-6">
       <playlist-button-play buttonSize="large" [playlistId]="playlistDetails?.id"/>
     </div>
