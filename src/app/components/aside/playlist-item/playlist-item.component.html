@@ -13,9 +13,9 @@
 
     <div class="flex flex-auto flex-col truncate">
       <h4 [class]="{
-      'text-white': true,
       'text-sm': true,
-       'text-green-500': isPlaylistPlaying}"
+      'text-white': !isPlaylistSelectedToPlay,
+       'text-green-500': isPlaylistSelectedToPlay}"
       >
         {{ playlistItem.title }}
       </h4>
@@ -23,6 +23,12 @@
       <span class="text-xs text-gray-400">
       {{ getArtists() }}
     </span>
+      @if(isPlaylistPlaying){
+        <div class="absolute right-2 top-3">
+          <equalizer/>
+        </div>
+      }
+
     </div>
   </a>
 </li>
