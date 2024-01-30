@@ -107,6 +107,9 @@ export class PlaylistDetailsComponent implements OnInit, OnDestroy {
 
   private loadPlaylistDetails() {
     this.playlistDetails = this.userPlaylists.find(playlist => playlist.id === this.playlistId);
+    if (!this.playlistDetails) {
+      this.setLoadingData();
+    }
   }
 
   private loadPlaylistSongs() {
@@ -137,6 +140,23 @@ export class PlaylistDetailsComponent implements OnInit, OnDestroy {
   private redirectToHome() {
     this.Router.navigate(['/'])
       .catch(e => console.error(e));
+  }
+
+  protected showPlaylistDurationAsString(): string {
+    const {hours, minutes, seconds} = this.playlistDuration;
+    let durationAstext = '';
+    if(hours > 0) {
+      durationAstext += `${hours} hora${hours > 1 ? 's' : ''}`;
+    }
+    if(minutes > 0) {
+      const bind = hours > 0 ? ', ' : '';
+      durationAstext += `${bind}${minutes} minuto${minutes > 1 ? 's' : ''}`;
+    }
+    if(seconds > 0) {
+      const bind = minutes > 0 ? ' y ' : '';
+      durationAstext += `${bind}${seconds} segundo${seconds > 1 ? 's' : ''}`;
+    }
+    return durationAstext;
   }
 
 }
