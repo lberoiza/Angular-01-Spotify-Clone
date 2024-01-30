@@ -10,6 +10,12 @@ import { SearchComponent } from "@/icons/search.component";
 import {
   LoadingPlaylistItemComponent
 } from "@/components/common/loading-components/loading-playlist-item/loading-playlist-item.component";
+import { Store } from "@ngrx/store";
+import { AppState } from "@/store/app.state";
+import {
+  SelectUserShouldShowLoadingPlaylistComponents
+} from "@/store/user-store/userstore.selectors";
+import { UserStoreActions } from "@/store/user-store/userstore.actions";
 
 @Component({
   selector: 'search-playlist',
@@ -31,21 +37,49 @@ import {
 })
 export class SearchPlaylistComponent implements OnInit {
 
-  protected loading: boolean = false;
+  protected shouldShowLoadingComponents: boolean = false;
   protected playlists: Playlist[] = [];
 
-  constructor(private applicationApi: ApplicationApiMock) {
+  constructor(
+    private applicationApi: ApplicationApiMock,
+    private store: Store<AppState>
+    ) {
   }
 
   ngOnInit(): void {
-    this.loading = true;
+    this.store.select(SelectUserShouldShowLoadingPlaylistComponents).subscribe(shouldShowLoadingComponent => {
+      this.shouldShowLoadingComponents = shouldShowLoadingComponent;
+    })
+
+
+    if (this.playlists.length === 0 && !this.shouldShowLoadingComponents) {
+      // this.isLoading = true;
+      this.store.dispatch(UserStoreActions.setIsLoadingPlaylistData({isLoadingPlaylistData: true}));
+    }
+
     this.applicationApi.getAllPlaylists()
       .subscribe(
         (playlists: Playlist[]) => {
           this.playlists = playlists;
-          this.loading = false;
+          this.store.dispatch(UserStoreActions.setPlaylists({playlists}));
+          this.store.dispatch(UserStoreActions.setIsLoadingPlaylistData({isLoadingPlaylistData: false}));
         }
       );
+
+
+    // this.isLoading = true;
+    // // this.applicationApi.getAllPlaylists()
+    // //   .subscribe(
+    // //     (playlists: Playlist[]) => {
+    // //       this.playlists = playlists;
+    // //       this.loading = false;
+    // //     }
+    // //   );
+    // this.store.select(SelectUserPlaylists).subscribe(playlists => {
+    //   console.log("obteniendo los datos desde store");
+    //   this.playlists = playlists;
+    //   this.isLoading = false;
+    // });
   }
 
 
