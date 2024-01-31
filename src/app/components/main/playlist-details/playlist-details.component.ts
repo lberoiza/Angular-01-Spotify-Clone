@@ -11,7 +11,7 @@ import { Store } from "@ngrx/store";
 import { Subscription, take } from "rxjs";
 import { colors } from "@/data/colors";
 import { getPlaylistDuration } from "@/libs/utilities-playlist";
-import { songArtistAsString } from "@/libs/utitlities-song";
+import { songArtistAsString } from "@/libs/utilities-song";
 import {
   PlaylistDetailsMusictableComponent
 } from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
