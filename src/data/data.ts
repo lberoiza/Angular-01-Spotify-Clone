@@ -9,6 +9,17 @@ export interface Playlist {
   artists: string[];
 }
 
+export interface Song {
+  id: number;
+  albumId: number;
+  title: string;
+  image: string;
+  artists: string[];
+  album: string;
+  duration: string;
+  filename: string
+}
+
 export const playlists: Playlist[] = [
   {
     id: '1',
@@ -82,16 +93,6 @@ export const allPlaylists = [
   ...sidebarPlaylists,
 ]
 
-export interface Song {
-  id: number;
-  albumId: number;
-  title: string;
-  image: string;
-  artists: string[];
-  album: string;
-  duration: string;
-  filename: string
-}
 
 export const songs: Song[] = [
   {
