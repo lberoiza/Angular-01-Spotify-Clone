@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { RepeatType } from "@/models/state/playerstate.model";
+import type { AppState } from "@/store/app.state";
 import { IconPlayerControlRepeatComponent } from "@/icons/player-control-repeat.component";
 import { IconPlayerControlRepeatOneComponent } from "@/icons/player-control-repeat-one.component";
-import { Store } from "@ngrx/store";
-import { AppState } from "@/store/app.state";
+import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
+import { RepeatType } from "@/models/state/playerstate.model";
 import { SelectPlayerRepeatType } from "@/store/player-store/playerstore.selectors";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'player-button-repeat',
@@ -16,7 +17,7 @@ import { SelectPlayerRepeatType } from "@/store/player-store/playerstore.selecto
   templateUrl: './player-button-repeat.component.html',
   styleUrl: './player-button-repeat.component.css'
 })
-export class PlayerButtonRepeatComponent implements OnInit{
+export class PlayerButtonRepeatComponent implements OnInit {
 
   protected repeatValue: RepeatType = RepeatType.REPEAT_NONE;
 
@@ -35,8 +36,8 @@ export class PlayerButtonRepeatComponent implements OnInit{
   }
 
   protected buttonPlayerControlShuffleClicked(): void {
-    console.log('button player control repeat clicked');
     this.changeRepeatValue();
+    this.store.dispatch(PlayerStoreActions.setRepeatType({repeatType: this.repeatValue}));
   }
 
 
