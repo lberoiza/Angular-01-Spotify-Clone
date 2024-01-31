@@ -109,6 +109,7 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
         .subscribe(response => {
           if(response.playlist) {
             this.store.dispatch(PlayerStoreActions.setCurrentPlaylist({playlist: response.playlist}));
+            this.store.dispatch(PlayerStoreActions.setCurrentPlaylistSongs({songs: response.songs}));
             this.store.dispatch(PlayerStoreActions.setCurrentSong({song: response.songs[0]}));
           }
           this.updateStoreIsPlaying(true);
