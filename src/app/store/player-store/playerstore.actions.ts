@@ -1,6 +1,6 @@
 import { createActionGroup, props } from "@ngrx/store";
 import type { Playlist, Song } from "@/data/data";
-import { CurrentMusic } from "@/models/state/playerstate.model";
+import { CurrentMusic, RepeatType } from "@/models/state/playerstate.model";
 
 
 export const PlayerStoreActions = createActionGroup({
@@ -13,6 +13,8 @@ export const PlayerStoreActions = createActionGroup({
     'Set currentPlaylistSongs': props<{ songs: Song[] }>(),
     'Set currentSong': props<{ song: Song }>(),
     'Set currentTime': props<{ currentTime: number }>(),
+    'Set isShuffle': props<{ isShuffle: boolean }>(),
+    'Set repeatType': props<{ repeatType: RepeatType }>(),
   },
 });
 

@@ -21,10 +21,19 @@ export const SelectPlayerVolume = createSelector(
   (state: PlayerState) => state.volume
 );
 
-
 export const SelectPlayerCurrentTime = createSelector(
   SelectPlayerState,
   (state: PlayerState) => state.currentTime
+);
+
+export const SelectPlayerIsShuffle = createSelector(
+  SelectPlayerState,
+  (state: PlayerState) => state.isShuffle
+);
+
+export const SelectPlayerRepeatType = createSelector(
+  SelectPlayerState,
+  (state: PlayerState) => state.repeatType
 );
 
 export const SelectPlayerCurrentSong = createSelector(
