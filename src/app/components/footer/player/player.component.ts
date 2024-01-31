@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import type { AppState } from "@/store/app.state";
 import { PlayerCurrentSongComponent } from "@/components/footer/player-current-song/player-current-song.component";
-import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { PlayerTrackControlComponent } from "@/components/footer/player-track-control/player-track-control.component";
 import { SelectPlayerIsPlaying } from "@/store/player-store/playerstore.selectors";
 import { Store } from "@ngrx/store";
@@ -60,8 +59,4 @@ export class PlayerComponent implements OnInit {
       .subscribe((isPlaying) => this.isPlaying = isPlaying);
   }
 
-
-  protected playPauseButtonClicked() {
-    this.store.dispatch(PlayerStoreActions.setIsPlaying({isPlaying: !this.isPlaying}));
-  }
 }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import type { AppState } from "@/store/app.state";
 import { PauseComponent } from "@/icons/pause.component";
+import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'player-button-pause',
@@ -12,7 +15,13 @@ import { PauseComponent } from "@/icons/pause.component";
 })
 export class PlayerButtonPauseComponent {
 
+
+  constructor(
+    private store: Store<AppState>
+  ) {
+  }
+
   protected playerButtonPauseClicked(): void {
-    console.log('player button pause clicked');
+    this.store.dispatch(PlayerStoreActions.setIsPlaying({isPlaying: false}));
   }
 }
