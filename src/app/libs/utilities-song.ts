@@ -14,8 +14,33 @@ export function shuffleSongArray(array: Song[]): Song[] {
 }
 
 export function sortSongArray(array: Song[]): Song[] {
-  const  compareRandom = (song1: Song, song2: Song): number =>  song1.id > song2.id ? 1 : -1
+  const compareRandom = (song1: Song, song2: Song): number => song1.id > song2.id ? 1 : -1
   const shuffledArray: Song[] = [...array];
   shuffledArray.sort(compareRandom);
   return shuffledArray;
 }
+
+function isLastIndexOrOutOfRange(songList: Song[], currentSongIndex: number): boolean {
+  return currentSongIndex === -1 || currentSongIndex === songList.length - 1
+}
+
+function isFirstIndexOrOutOfRange(songList: Song[], currentSongIndex: number): boolean {
+  return currentSongIndex === -1 || currentSongIndex === 0
+}
+
+function findSongIndexInList(songs: Song[], currentSong: Song): number {
+  return songs.findIndex(song => song.id === currentSong.id);
+}
+
+export function nextSongOfList(songList: Song[], currentSong: Song, repeatPlaylist: boolean): Song {
+  const currentSongIndex: number = findSongIndexInList(songList, currentSong);
+  const firstSongOrCurrentSong: Song = repeatPlaylist ? songList[0] : currentSong;
+  return isLastIndexOrOutOfRange(songList, currentSongIndex) ? firstSongOrCurrentSong : songList[currentSongIndex + 1];
+}
+
+export function previousSongInList(songList: Song[], currentSong: Song, repeatPlaylist: boolean): Song {
+  const currentSongIndex: number = findSongIndexInList(songList, currentSong);
+  const lastSongOrCurrentSong: Song = repeatPlaylist ? songList[songList.length - 1] : currentSong;
+  return isFirstIndexOrOutOfRange(songList, currentSongIndex) ? lastSongOrCurrentSong : songList[currentSongIndex - 1];
+}
+
