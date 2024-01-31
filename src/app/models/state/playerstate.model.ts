@@ -10,4 +10,5 @@ export interface PlayerState {
   isPlaying: boolean;
   currentMusic: CurrentMusic;
   volume: number;
+  currentTime: number;
 }

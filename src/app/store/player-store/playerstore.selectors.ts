@@ -21,6 +21,12 @@ export const SelectPlayerVolume = createSelector(
   (state: PlayerState) => state.volume
 );
 
+
+export const SelectPlayerCurrentTime = createSelector(
+  SelectPlayerState,
+  (state: PlayerState) => state.currentTime
+);
+
 export const SelectPlayerCurrentSong = createSelector(
   SelectPlayerState,
   (state: PlayerState) => state.currentMusic.song
