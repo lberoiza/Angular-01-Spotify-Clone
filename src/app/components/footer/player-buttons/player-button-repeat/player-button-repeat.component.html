@@ -1,0 +1,16 @@
+<div
+  [class]="{
+  'hover:scale-125':true,
+  'hover:cursor-pointer':true,
+  'text-white': isRepeatNone(),
+  'text-green-500': !isRepeatNone()
+  }"
+  (click)="buttonPlayerControlShuffleClicked()"
+>
+  @if(isRepeatNone() || isRepeatPlaylist()){
+    <icon-player-control-repeat [active]="isRepeatPlaylist()"/>
+  } @else {
+    <icon-player-control-repeat-one/>
+  }
+
+</div>
