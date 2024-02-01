@@ -12,11 +12,22 @@ export enum RepeatType {
   REPEAT_ONE = 2
 }
 
+export enum CurrentTimeUpdateBy {
+  AUDIO_PLAYER = 0,
+  USER = 1
+}
+
+export interface CurrentTimeInfo {
+  currentTime: number;
+  updatedBy: CurrentTimeUpdateBy;
+}
+
+
 export interface PlayerState {
   isPlaying: boolean;
   currentMusic: CurrentMusic;
   volume: number;
-  currentTime: number;
+  currentTimeInfo: CurrentTimeInfo;
   isShuffle: boolean;
   repeatType: RepeatType;
 }

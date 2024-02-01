@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import type { PlayerState } from '@/models/state/playerstate.model';
-import { RepeatType } from "@/models/state/playerstate.model";
+import { CurrentTimeUpdateBy, RepeatType } from "@/models/state/playerstate.model";
 import { PlayerStoreActions } from '@/store/player-store/playerstore.actions';
 
 export const initialState: PlayerState = {
   currentMusic: {playlist: undefined, song: undefined, songs: []},
-  currentTime: 0,
+  currentTimeInfo: {currentTime: 0, updatedBy: CurrentTimeUpdateBy.AUDIO_PLAYER},
   isPlaying: false,
   volume: 0.1,
   isShuffle: false,
@@ -23,8 +23,8 @@ export const PlayerStoreReducers = createReducer(
     }
     return {...currentState, isPlaying}
   }),
-  on(PlayerStoreActions.setCurrentTime, (currentState, {currentTime}) => {
-    return {...currentState, currentTime}
+  on(PlayerStoreActions.setCurrentTimeInfo, (currentState, {currentTimeInfo}) => {
+    return {...currentState, currentTimeInfo}
   }),
   on(PlayerStoreActions.setIsShuffle, (currentState, {isShuffle}) => {
     return {...currentState, isShuffle}
