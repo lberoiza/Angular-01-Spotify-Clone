@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import type { AppState } from "@/store/app.state";
 import type { Song } from "@/data/data";
 import { IconPlayerBackComponent } from "@/icons/player-back.component";
-import { PlayerState, RepeatType } from "@/models/state/playerstate.model";
+import { CurrentTimeUpdateBy, PlayerState, RepeatType } from "@/models/state/playerstate.model";
 import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { SelectPlayerState } from "@/store/player-store/playerstore.selectors";
 import { Store } from "@ngrx/store";
@@ -45,11 +45,29 @@ export class PlayerButtonBackComponent implements OnInit {
   }
 
   private shouldStartSongOver(): boolean {
-    return this.playerState.currentTime > 2;
+    return this.ifCurrentTimeFarFromStart()
+      || (this.isFirstSongInPlaylist() && this.isRepeatNotPlaylist());
   }
 
+  private ifCurrentTimeFarFromStart(): boolean {
+    return this.playerState.currentTimeInfo.currentTime > 2
+  }
+
+  private isFirstSongInPlaylist(): boolean {
+    const currentSongList: Song[] = this.playerState.currentMusic.songs;
+    const currentSong: Song | undefined = this.playerState.currentMusic.song;
+    if(currentSongList.length === 0) return false;
+    if(!currentSong) return false;
+    return currentSongList[0].id === currentSong.id;
+  }
+
+  private isRepeatNotPlaylist(): boolean {
+    return this.playerState.repeatType !== RepeatType.REPEAT_PLAYLIST;
+  }
+
+
   private startSongOver(): void {
-    this.store.dispatch(PlayerStoreActions.setCurrentTime({currentTime: 0}));
+    this.store.dispatch(PlayerStoreActions.setCurrentTimeInfo({currentTimeInfo: {currentTime: 0, updatedBy: CurrentTimeUpdateBy.USER}}));
   }
 
   private loadPreviousSong(currentSong: Song): void {
