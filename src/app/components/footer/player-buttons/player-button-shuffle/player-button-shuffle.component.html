@@ -1,11 +1,15 @@
 <div
   [class]="{
-  'text-white': !this.isShuffle,
-  'text-green-500': this.isShuffle
+  'text-gray-500': !isShuffle,
+  'text-green-500': isShuffle,
+  'hover:cursor-pointer': true,
+  'hover:scale-110': true,
+  'hover:text-white': !isShuffle,
+  'hover:text-green-500': isShuffle
   }"
 >
   <icon-player-control-shuffle
-    class="hover:scale-125 hover:cursor-pointer"
+    [active]="isShuffle"
     (click)="buttonPlayerControlShuffleClicked()"
   />
 </div>
