@@ -1,13 +1,17 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import type { AppState } from "@/store/app.state";
+import type { CurrentTimeInfo } from "@/models/state/playerstate.model";
 import type { Song } from "@/data/data";
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { CurrentTimeUpdateBy } from "@/models/state/playerstate.model";
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from "@angular/material/slider";
+import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { Store } from "@ngrx/store";
 import { getSongUrl } from "@/libs/assets";
 import { secondsToTimeFormat } from "@/libs/time-formatter";
 import {
   SelectPlayerCurrentSong,
+  SelectPlayerCurrentTimeInfo,
   SelectPlayerIsPlaying,
   SelectPlayerVolume
 } from "@/store/player-store/playerstore.selectors";
@@ -30,7 +34,6 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   protected audioPlayer!: HTMLAudioElement;
   protected isPlayerRunning: boolean = false;
   protected currentTimeSeg: number = 0;
-  protected currentSongUrl: string = '';
   protected totalSongDurationInSeg: number = 0;
   protected totalSongDurationAsTimeFormat: String = '0:00';
 
@@ -43,6 +46,7 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.audioPlayer = this.audioRef.nativeElement;
+    this.addStoreSelectorChangeCurrentTime();
     this.addStoreSelectorChangeVolume();
     this.addStoreSelectorCurrentSong();
     this.addStoreSelectorIsPlayerPlaying();
@@ -51,6 +55,15 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.removeListenerTimeUpdateCurrentTime()
+  }
+
+  private addStoreSelectorChangeCurrentTime(): void {
+    this.store.select(SelectPlayerCurrentTimeInfo).subscribe((currentTimeInfo: CurrentTimeInfo) => {
+      this.currentTimeSeg = currentTimeInfo.currentTime;
+      if (currentTimeInfo.updatedBy !== CurrentTimeUpdateBy.AUDIO_PLAYER) {
+        this.onInputValueSongTrackBar();
+      }
+    });
   }
 
   private addStoreSelectorChangeVolume(): void {
@@ -62,7 +75,8 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   private addStoreSelectorCurrentSong(): void {
     this.store.select(SelectPlayerCurrentSong).subscribe((currentSong: Song | undefined) => {
       this.currentSong = currentSong;
-      this.updateCurrentSongUrl();
+      this.audioPlayer.src = getSongUrl(currentSong);
+      this.playSong();
     });
   }
 
@@ -82,14 +96,12 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   private onAudioTimeUpdate() {
-    this.currentTimeSeg = this.audioPlayer.currentTime;
-  }
-
-  private updateCurrentSongUrl(): void {
-    this.currentSongUrl = getSongUrl(this.currentSong);
-    if (this.currentSongUrl != this.audioPlayer.src) {
-      this.audioPlayer.src = this.currentSongUrl;
-    }
+    this.store.dispatch(PlayerStoreActions.setCurrentTimeInfo({
+      currentTimeInfo: {
+        currentTime: this.audioPlayer.currentTime,
+        updatedBy: CurrentTimeUpdateBy.AUDIO_PLAYER
+      }
+    }));
   }
 
   protected elapsedTimeAsString(): string {
@@ -101,12 +113,18 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   private playSong(): void {
-    this.audioPlayer.play()
-      .then(() => {
-        this.totalSongDurationInSeg = this.audioPlayer.duration;
-        this.totalSongDurationAsTimeFormat = secondsToTimeFormat(this.totalSongDurationInSeg);
-      })
-      .catch(e => console.log('error playing', e));
+    if (this.currentSong) {
+      this.audioPlayer.play()
+        .then(() => {
+          this.totalSongDurationInSeg = this.audioPlayer.duration;
+          this.totalSongDurationAsTimeFormat = secondsToTimeFormat(this.totalSongDurationInSeg);
+          this.store.dispatch(PlayerStoreActions.setIsPlaying({isPlaying: true}));
+        })
+        .catch(e => {
+          console.log('error playing', e)
+          this.store.dispatch(PlayerStoreActions.setIsPlaying({isPlaying: false}));
+        });
+    }
   }
 
   private pauseSong(): void {
