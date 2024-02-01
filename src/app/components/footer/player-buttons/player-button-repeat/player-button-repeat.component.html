@@ -1,0 +1,18 @@
+<div
+  [class]="{
+  'hover:scale-110':true,
+  'hover:text-white':isRepeatNone(),
+  'hover:text-green-500':!isRepeatNone(),
+  'hover:cursor-pointer':true,
+  'text-gray-500': isRepeatNone(),
+  'text-green-500': !isRepeatNone()
+  }"
+  (click)="buttonPlayerControlShuffleClicked()"
+>
+  @if (isRepeatNone() || isRepeatPlaylist()) {
+    <icon-player-control-repeat [active]="isRepeatPlaylist()"/>
+  } @else {
+    <icon-player-control-repeat-one/>
+  }
+
+</div>

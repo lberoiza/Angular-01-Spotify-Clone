@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { songArtistAsString } from "@/libs/utitlities-song";
+import { songArtistAsString } from "@/libs/utilities-song";
 import { Song } from "@/data/data";
 import { Store } from "@ngrx/store";
 import { AppState } from "@/store/app.state";

@@ -3,7 +3,7 @@ import { SelectPlayerCurrentMusic, SelectPlayerCurrentSong } from "@/store/playe
 import { Store } from "@ngrx/store";
 import type { AppState } from "@/store/app.state";
 import type { Song } from "@/data/data";
-import { songArtistAsString } from "@/libs/utitlities-song";
+import { songArtistAsString } from "@/libs/utilities-song";
 
 @Component({
   selector: 'playlist-details-musictable-songtitle',

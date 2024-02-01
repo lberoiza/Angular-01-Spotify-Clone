@@ -5,7 +5,7 @@ import { RouterLink } from "@angular/router";
 import { SelectPlayerCurrentSong, SelectPlayerState } from "@/store/player-store/playerstore.selectors";
 import { Store } from "@ngrx/store";
 import { colors } from "@/data/colors";
-import { songArtistAsString } from "@/libs/utitlities-song";
+import { songArtistAsString } from "@/libs/utilities-song";
 import { EqualizerComponent } from "@/components/common/equalizer/equalizer.component";
 
 @Component({
