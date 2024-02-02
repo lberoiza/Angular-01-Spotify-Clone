@@ -1,9 +1,7 @@
-<li>
-  <a
-    class="flex flex-col gap-2 text-zinc-400 hover:text-zinc-100 items-center py-2 font-medium transition duration-300 lg:flex-row lg:pl-2"
-    [routerLink]="href"
-  >
-    <ng-content />
-    <span class="">{{ label }}</span>
-  </a>
-</li>
+<a
+  class="flex flex-col gap-2 text-zinc-400 hover:text-zinc-100 items-center py-2 font-medium transition duration-300 lg:flex-row lg:pl-2"
+  [routerLink]="href"
+>
+  <ng-content/>
+  <span class="">{{ label }}</span>
+</a>

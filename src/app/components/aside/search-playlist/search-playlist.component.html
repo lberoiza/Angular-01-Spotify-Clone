@@ -1,17 +1,22 @@
-<nav class="flex flex-1 flex-col gap-2">
-  <div class="bg-zinc-900 rounded-lg p-2">
-    <ul>
-      <menu-item href="/" label="Inicio">
-        <icon-home/>
-      </menu-item>
+<nav class="flex flex-row gap-2 flex-1 lg:flex-col">
+  <div class="bg-zinc-900 rounded-lg p-2 flex-1 lg:flex-none">
+    <ul class="flex flex-row gap-4 lg:flex-col">
+      <li>
+        <menu-item href="/" label="Inicio">
+          <icon-home/>
+        </menu-item>
+      </li>
 
-      <menu-item href="/" label="Buscar">
-        <icon-search/>
-      </menu-item>
+      <li>
+        <menu-item href="/" label="Buscar">
+          <icon-search/>
+        </menu-item>
+      </li>
+
     </ul>
   </div>
 
-  <div class="bg-zinc-900 rounded-lg p-2 flex-1">
+  <div class="hidden bg-zinc-900 rounded-lg p-2 flex-1 lg:block">
     <ul>
       <menu-item href="/" label="Tu biblioteca">
         <icon-library/>

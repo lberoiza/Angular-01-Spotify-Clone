@@ -1,17 +1,22 @@
 #main-container {
   display: grid;
   grid-template-areas:
-          "aside main"
-          "player player";
-  grid-template-columns: 120px 1fr;
-  grid-template-rows: 1fr auto;
+      "aside"
+      "main"
+      "player";
+  grid-template-columns: 1fr;
+  grid-template-rows: 80px 1fr auto;
 
 }
 
 
 @media (min-width: 1024px) {
   #main-container {
+    grid-template-rows: 1fr auto;
     grid-template-columns: 350px 1fr;
+    grid-template-areas:
+          "aside main"
+          "player player";
   }
 
 }
