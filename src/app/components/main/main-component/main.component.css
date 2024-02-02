@@ -9,7 +9,7 @@
 }
 
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   #main-container {
     grid-template-columns: 350px 1fr;
   }
