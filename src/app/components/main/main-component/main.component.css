@@ -5,7 +5,7 @@
       "main"
       "player";
   grid-template-columns: 1fr;
-  grid-template-rows: 80px 1fr auto;
+  grid-template-rows: 80px auto auto;
 
 }
 
