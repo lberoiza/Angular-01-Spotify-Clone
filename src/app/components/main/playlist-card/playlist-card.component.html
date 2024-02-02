@@ -1,5 +1,5 @@
 <article
-  class="group relative hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md transition-all duration-300">
+  class="group relative hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md transition-all duration-300 lg:pb-3 max-w-[300px] h-[100px] lg:max-w-none lg:h-full">
 
   <div
     [class]="{
@@ -30,7 +30,7 @@
     class="relative hover:cursor-pointer playlist-item flex flex-row gap-2 overflow-hidden p-2 pb-3 transition-all duration-300 rounded-md lg:flex-col lg:w-44"
     [style.view-transition-name]="'playlist_' + playlist.id +'_box'"
   >
-    <picture class="aspect-square w-1/3 h-auto flex-none lg:w-full">
+    <picture class="aspect-square w-1/5 h-auto flex-none lg:w-full">
       <img [src]="playlist.cover" alt="Cover of {{playlist.title}} by {{ songArtistAsString(this.playlist.artists) }}"
            class="object-cover w-full h-full rounded-md"
            [style.view-transition-name]="'playlist_' + playlist.id +'_image'"
