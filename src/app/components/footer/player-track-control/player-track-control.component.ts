@@ -55,19 +55,28 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.audioPlayer = this.audioRef.nativeElement;
+    this.addStoreSelectors();
+    this.addAudioPlayerListeners();
+  }
+
+  public ngOnDestroy(): void {
+    this.removeListenerTimeUpdateCurrentTime();
+    this.removeListenerPlayerEnded();
+  }
+
+
+  private addStoreSelectors(): void {
     this.addStoreSelectorPlayerListSongs();
     this.addStoreSelectorPlayerRepeatType();
     this.addStoreSelectorChangeCurrentTime();
     this.addStoreSelectorChangeVolume();
     this.addStoreSelectorCurrentSong();
     this.addStoreSelectorIsPlayerPlaying();
-    this.addListenerTimeUpdateCurrentTime();
-    this.addListenerPlayerEnded();
   }
 
-  public ngOnDestroy(): void {
-    this.removeListenerTimeUpdateCurrentTime();
-    this.removeListenerPlayerEnded();
+  private addAudioPlayerListeners(): void {
+    this.addListenerTimeUpdateCurrentTime();
+    this.addListenerPlayerEnded();
   }
 
   private addStoreSelectorPlayerListSongs(): void {
