@@ -1,0 +1,18 @@
+.player {
+  display: grid;
+  grid-template-rows: 40px 40px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "player-current-song player-volume-controls"
+    "player-track-buttons player-track-buttons"
+    "player-tracker player-tracker";
+}
+
+@media (min-width: 1024px) {
+  .player {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "player-current-song player-track-buttons player-volume-controls"
+      "player-tracker player-tracker player-tracker";
+  }
+}
