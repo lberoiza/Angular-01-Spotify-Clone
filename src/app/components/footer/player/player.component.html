@@ -1,9 +1,9 @@
-<div class="flex flex-row justify-between w-full px-1 z-50">
-  <div class="w-[200px]">
+<div class="player">
+  <div class="[grid-area:player-current-song]">
     <player-current-song/>
   </div>
 
-  <div class="place-content-center flex-1 flex-col">
+  <div class="[grid-area:player-track-buttons]">
     <div class="flex justify-center flex-row items-center gap-6">
 
       <player-button-shuffle/>
@@ -19,13 +19,13 @@
       <player-button-next/>
       <player-button-repeat/>
     </div>
-
-    <div class="flex justify-center flex-row items-center">
-      <player-track-control class="flex-1"/>
-    </div>
   </div>
 
-  <div class="grid place-content-center">
+  <div class="[grid-area:player-tracker]">
+    <player-track-control />
+  </div>
+
+  <div class="[grid-area:player-volume-controls]">
     <player-volume-control/>
   </div>
 </div>

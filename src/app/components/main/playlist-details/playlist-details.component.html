@@ -4,8 +4,8 @@
   [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_box'"
   [style.background-color]="playlistDetails?.color?.accent"
 >
-  <header class="flex flex-row gap-8 px-6 mt-12">
-    <picture class="aspect-square w-52 h-52 flex-none"
+  <header class="flex flex-col gap-8 px-6 mt-4 lg:mt-12 lg:flex-row">
+    <picture class="flex flex-row"
              [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_image'">
       @if (isLoading) {
         <loading-image/>
@@ -13,7 +13,7 @@
         <img
           [src]="playlistDetails?.cover"
           alt="Cover of {{playlistDetails?.title}}"
-          class="object-cover w-full h-auto shadow-lg"
+          class="aspect-square lg:size-52 object-cover w-1/2 h-auto shadow-lg"
         />
       }
     </picture>
@@ -21,7 +21,7 @@
     <div class="flex flex-col justify-between">
       <h2 class="flex flex-1 items-end">Playlist</h2>
       <div>
-        <h1 class="text-5xl font-bold block text-white">
+        <h1 class="text-xl font-bold block text-white lg:text-5xl">
           <span [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_title'">
             {{ playlistDetails?.title }}
           </span>
@@ -47,11 +47,17 @@
 
   @if (!isLoading) {
     <div class="pl-6 pt-6">
-      <playlist-button-play buttonSize="large" [playlistId]="playlistDetails?.id"/>
+      <playlist-button-play
+        buttonSize="large"
+        [playlistId]="playlistDetails?.id"
+        [style.view-transition-name]="'playlist_' + playlistDetails?.id +'_button'"
+      />
     </div>
 
     <section class="p-6">
-      <playlist-details-musictable [songs]="playlistSongs"/>
+      <playlist-details-musictable
+        [songs]="playlistSongs"
+      />
     </section>
   }
 

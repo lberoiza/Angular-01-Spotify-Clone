@@ -1,7 +1,6 @@
-<div class="relative z-10 px-6 pt-10 transition-all duration-1000 bg-green-600">
+<div class="relative flex flex-col p-3 h-full overflow-x-hidden transition-all duration-1000 bg-gradient-to-t from-zinc-900 via-zinc-900/90 md:from-50% to-green-600">
   <greetings-user/>
-
-  <div class="flex flex-wrap mt-6 gap-4">
+  <div class="flex flex-wrap mt-6 gap-4 justify-center xl:justify-start">
     @if (shouldShowLoadingComponents) {
       @for (n of [1, 2, 3, 4, 5]; track n) {
         <loading-playlist-card/>
@@ -11,7 +10,5 @@
         <playlist-card [playlist]="playlist"/>
       }
     }
-  </div>
-  <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-[1]">
   </div>
 </div>

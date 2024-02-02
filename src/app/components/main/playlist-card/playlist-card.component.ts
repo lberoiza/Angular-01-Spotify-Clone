@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import type { AppState } from "@/store/app.state";
 import type { Playlist } from "@/data/data";
 import { PlaylistButtonPlayComponent } from "@/components/main/playlist-button-play/playlist-button-play.component" ;
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { colors } from "@/data/colors";
 import { songArtistAsString } from "@/libs/utilities-song";
@@ -37,7 +37,8 @@ export class PlaylistCardComponent implements OnInit {
 
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {
   }
 
@@ -49,5 +50,9 @@ export class PlaylistCardComponent implements OnInit {
   }
 
 
-
+  navigateToPlaylistDetails() {
+    console.log('link clicked');
+    this.router.navigate(['playlist', this.playlist.id])
+      .catch(() => console.error('error navigating to playlist', this.playlist.id));
+  }
 }

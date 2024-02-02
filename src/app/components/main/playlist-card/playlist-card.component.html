@@ -1,56 +1,73 @@
 <article
-  class="group relative hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md transition-all duration-300">
+  class="group relative hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md transition-all duration-300 lg:pb-3 max-w-[300px] h-[100px] lg:max-w-none lg:h-full">
+
   <div
     [class]="{
-    'absolute': true,
-    'right-4': true,
-    'bottom-20': true,
-    'transition-all': true,
-    'duration-500': true,
-    'group-hover:translate-y-0': true,
-    'group-hover:opacity-100': true,
-    'z-10': true,
-    'opacity-0': !isPlaylistPlaying,
-    'translate-y-4': !isPlaylistPlaying,
-    'translate-y-1': isPlaylistPlaying,
-    }">
-    <playlist-button-play [playlistId]="playlist.id"/>
+            'absolute': true,
+            'z-10': true,
+            'right-4': true,
+            'top-14': true,
+            'opacity-1': !isPlaylistPlaying,
+            'lg:right-4': true,
+            'lg:top-20': true,
+            'lg:transition-all': true,
+            'lg:duration-500': true,
+            'lg:group-hover:translate-y-0': true,
+            'lg:group-hover:opacity-100': true,
+            'lg:opacity-0': !isPlaylistPlaying,
+            'lg:translate-y-4': !isPlaylistPlaying,
+            'lg:translate-y-1': isPlaylistPlaying,
+            }"
+  >
+    <playlist-button-play
+      [playlistId]="playlist.id"
+      [style.view-transition-name]="'playlist_' + playlist.id +'_button'"
+    />
   </div>
 
-
-  <a routerLink="/playlist/{{playlist.id}}"
-     class="playlist-item transition-all duration-300 flex relative p-2 overflow-hidden gap-2 pb-6 rounded-md w-44 flex-col"
-     [style.view-transition-name]="'playlist_' + playlist.id +'_box'"
+  <a
+    (click)="navigateToPlaylistDetails()"
+    class="relative hover:cursor-pointer playlist-item flex flex-row gap-2 overflow-hidden p-2 pb-3 transition-all duration-300 rounded-md lg:flex-col lg:w-44"
+    [style.view-transition-name]="'playlist_' + playlist.id +'_box'"
   >
-    <picture class="aspect-square w-full h-auto flex-none">
+    <picture class="aspect-square w-1/5 h-auto flex-none lg:w-full">
       <img [src]="playlist.cover" alt="Cover of {{playlist.title}} by {{ songArtistAsString(this.playlist.artists) }}"
            class="object-cover w-full h-full rounded-md"
            [style.view-transition-name]="'playlist_' + playlist.id +'_image'"
       />
     </picture>
 
-    <div class="flex flex-auto flex-col px-2">
-      <h4
-        [class]="{
+    <div class="flex flex-1 flex-row px-2 gap-1 justify-between">
+
+      <div class="flex flex-col">
+        <h4
+          [class]="{
           'text-sm': true,
           'text-white': !isPlaylistPlaying,
           'text-green-500': isPlaylistPlaying
           }"
-        [style.view-transition-name]="'playlist_' + playlist.id +'_title'">
-        {{ playlist.title }}
-      </h4>
+          [style.view-transition-name]="'playlist_' + playlist.id +'_title'">
+          {{ playlist.title }}
+        </h4>
 
-      <span
-        class="text-xs text-gray-400 truncate w-[80%]" [style.view-transition-name]="'playlist_' + playlist.id +'_artists'">
+        <span
+          class="text-xs text-gray-400 truncate w-[80%]"
+          [style.view-transition-name]="'playlist_' + playlist.id +'_artists'">
         {{ songArtistAsString(this.playlist.artists) }}
       </span>
+      </div>
+
+      @if (isPlaylistPlaying) {
+        <equalizer
+          [style.view-transition-name]="'playlist_' + playlist.id +'_equalizer'"
+        />
+      }
+
+
     </div>
+
   </a>
-  @if(isPlaylistPlaying){
-    <div class="absolute bottom-[25px] right-[8px]">
-      <equalizer></equalizer>
-    </div>
-  }
+
 
 </article>
 
