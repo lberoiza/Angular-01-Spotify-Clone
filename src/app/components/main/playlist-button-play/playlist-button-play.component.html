@@ -1,5 +1,5 @@
-<button (click)="playButtonPressed()"
-        class="text-black rounded-full bg-green-500 p-4 hover:scale-105 transition hover:bg-green-400">
+<button (click)="playButtonPressed($event)"
+        class="text-black rounded-full bg-green-500 p-2 lg:p-4 hover:scale-105 transition hover:bg-green-400">
   @if (isPlaylistRunning) {
     <icon-pause [class]="iconClassName"/>
   } @else {

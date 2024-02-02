@@ -81,7 +81,8 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
     this.isPlaylistRunning = this.isSelectedPlaylistCurrentPlaylist() && this.playerIsPlaying;
   }
 
-  protected playButtonPressed(): void {
+  protected playButtonPressed(event: MouseEvent): void {
+    event.stopPropagation();
     if (this.playlistId === undefined) {
       return;
     }

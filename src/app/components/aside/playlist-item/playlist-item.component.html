@@ -1,17 +1,28 @@
 <li>
   <a
     routerLink="/playlist/{{ playlistItem.id }}"
-    class="playlist-item flex relative p-2 overflow-hidden items-center gap-5 rounded-md hover:bg-zinc-800"
+    class="playlist-item flex flex-row gap-2 relative p-2 overflow-hidden items-center rounded-md hover:bg-zinc-800 justify-start"
   >
-    <picture class="h-12 w-12 flex-none">
-      <img
-        [src]="playlistItem.cover"
-        alt="Cover of {{ playlistItem.title }} by {{ getArtists() }}"
-        class="object-cover w-full h-auto rounded-md"
-      />
-    </picture>
+    <section class="size-12">
+      <picture class="border-blue-500 border-solid">
+        <img
+          [src]="playlistItem.cover"
+          alt="Cover of {{ playlistItem.title }} by {{ getArtists() }}"
+          [class]="{
+          'object-cover': true,
+          'w-full': true,
+          'h-auto': true,
+          'rounded-md': true,
+          'border-0': !isPlaylistPlaying,
+          'border-[1px]': isPlaylistPlaying,
+          'border-green-400': true
+          }"
+        />
+      </picture>
+    </section>
 
-    <div class="flex flex-auto flex-col truncate">
+
+    <section class="h-12 flex flex-auto flex-col truncate hidden lg:block">
       <h4 [class]="{
       'text-sm': true,
       'text-white': !isPlaylistSelectedToPlay,
@@ -20,15 +31,16 @@
         {{ playlistItem.title }}
       </h4>
 
-      <span class="text-xs text-gray-400">
+      <span class="text-xs text-gray-400 hidden lg:inline">
       {{ getArtists() }}
     </span>
-      @if(isPlaylistPlaying){
-        <div class="absolute right-2 top-3">
-          <equalizer/>
-        </div>
-      }
+    </section>
 
-    </div>
+    <section class="h-12">
+      @if (isPlaylistPlaying) {
+        <equalizer/>
+      }
+    </section>
+
   </a>
 </li>
