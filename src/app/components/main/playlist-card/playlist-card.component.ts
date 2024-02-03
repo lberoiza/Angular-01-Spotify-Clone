@@ -51,7 +51,6 @@ export class PlaylistCardComponent implements OnInit {
 
 
   navigateToPlaylistDetails() {
-    console.log('link clicked');
     this.router.navigate(['playlist', this.playlist.id])
       .catch(() => console.error('error navigating to playlist', this.playlist.id));
   }
