@@ -4,7 +4,7 @@ import { UserStoreActions } from "@/store/user-store/userstore.actions";
 
 export const initialState: UserState = {
   playlists: [],
-  username: "lberoiza",
+  username: "User",
   isLoadingPlaylistData: false
 };
 
