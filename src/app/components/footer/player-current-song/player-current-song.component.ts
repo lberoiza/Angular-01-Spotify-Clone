@@ -4,11 +4,14 @@ import { Song } from "@/data/data";
 import { Store } from "@ngrx/store";
 import { AppState } from "@/store/app.state";
 import { SelectPlayerCurrentSong } from "@/store/player-store/playerstore.selectors";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'player-current-song',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './player-current-song.component.html',
   styleUrl: './player-current-song.component.css'
 })
