@@ -1,4 +1,5 @@
 import type { Song } from "@/data/data";
+import { getSongDurationInSeconds } from "@/libs/utilities-song";
 
 export interface PlaylistDuration {
   hours: number;
@@ -11,8 +12,7 @@ export function getPlaylistDuration(playlistSongs: Song[]): PlaylistDuration {
   let totalOfSeconds = 0;
 
   playlistSongs.forEach((song) => {
-    const [seconds = 0, minutes = 0, hours = 0] = song.duration.split(':').reverse().map(Number);
-    totalOfSeconds += hours * 3600 + minutes * 60 + seconds;
+    totalOfSeconds += getSongDurationInSeconds(song);
   });
 
   return {

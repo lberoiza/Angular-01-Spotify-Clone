@@ -1,5 +1,11 @@
 import type { Song } from "@/data/data";
 
+
+export function getSongDurationInSeconds(song: Song): number {
+  const [seconds = 0, minutes = 0, hours = 0] = song.duration.split(':').reverse().map(Number);
+  return hours * 3600 + minutes * 60 + seconds;
+}
+
 export function songArtistAsString(artistArray: string[]): string {
   return artistArray.join(', ');
 }
