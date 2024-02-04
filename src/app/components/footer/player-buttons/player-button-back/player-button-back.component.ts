@@ -20,6 +20,11 @@ import { previousSongInList } from "@/libs/utilities-song";
 export class PlayerButtonBackComponent implements OnInit {
 
   protected playerState!: PlayerState;
+  protected isButtonPressed: boolean = false;
+  protected rewindIntervalId: number = 0;
+  protected rewindStepSec: number = 2;
+  protected considerHoldingTimeAfter: number = 500;
+
 
   constructor(
     private store: Store<AppState>
@@ -33,8 +38,31 @@ export class PlayerButtonBackComponent implements OnInit {
       .subscribe((playerState: PlayerState) => this.playerState = playerState);
   }
 
+  protected pressButton() {
+    this.rewindIntervalId = setInterval(() => {
+      this.isButtonPressed = true;
+      this.rewindCoupleSeconds();
+    }, this.considerHoldingTimeAfter);
+  }
 
-  protected buttonPlayerBackClicked(): void {
+  protected releaseButton() {
+    if (!this.isButtonPressed) {
+      this.buttonPlayerBackClicked();
+    }
+    this.cleanUpRewindInterval()
+  }
+
+
+  protected leaveButton():void {
+    this.cleanUpRewindInterval();
+  }
+
+  private cleanUpRewindInterval(): void {
+    clearInterval(this.rewindIntervalId);
+    this.isButtonPressed = false;
+  }
+
+  private buttonPlayerBackClicked(): void {
     const currentSong: Song | undefined = this.playerState.currentMusic.song;
 
     if (currentSong) {
@@ -56,8 +84,8 @@ export class PlayerButtonBackComponent implements OnInit {
   private isFirstSongInPlaylist(): boolean {
     const currentSongList: Song[] = this.playerState.currentMusic.songs;
     const currentSong: Song | undefined = this.playerState.currentMusic.song;
-    if(currentSongList.length === 0) return false;
-    if(!currentSong) return false;
+    if (currentSongList.length === 0) return false;
+    if (!currentSong) return false;
     return currentSongList[0].id === currentSong.id;
   }
 
@@ -67,7 +95,7 @@ export class PlayerButtonBackComponent implements OnInit {
 
 
   private startSongOver(): void {
-    this.store.dispatch(PlayerStoreActions.setCurrentTimeInfo({currentTimeInfo: {currentTime: 0, updatedBy: CurrentTimeUpdateBy.USER}}));
+    this.updateCurrentTimeTo(0);
   }
 
   private loadPreviousSong(currentSong: Song): void {
@@ -75,6 +103,23 @@ export class PlayerButtonBackComponent implements OnInit {
     const repeatPlaylist: boolean = this.playerState.repeatType === RepeatType.REPEAT_PLAYLIST;
     const previousSong: Song = previousSongInList(currentSongList, currentSong, repeatPlaylist);
     this.store.dispatch(PlayerStoreActions.setCurrentSong({song: previousSong}));
+  }
+
+  private rewindCoupleSeconds(): void {
+    const newTime: number = this.playerState.currentTimeInfo.currentTime - this.rewindStepSec;
+    if (newTime < 0) {
+      this.releaseButton();
+    }
+    this.updateCurrentTimeTo(newTime);
+  }
+
+  private updateCurrentTimeTo(seconds: number): void {
+    this.store.dispatch(PlayerStoreActions.setCurrentTimeInfo({
+      currentTimeInfo: {
+        currentTime: seconds,
+        updatedBy: CurrentTimeUpdateBy.USER
+      }
+    }));
   }
 
 
