@@ -90,6 +90,7 @@ export class PlayerButtonBackComponent extends ClickableHoldableComponent implem
     const newTime: number = this.playerState.currentTimeInfo.currentTime - this.rewindStepSec;
     if (newTime < 0) {
       this.releaseButton();
+      return;
     }
     this.updateCurrentTimeTo(newTime);
   }
