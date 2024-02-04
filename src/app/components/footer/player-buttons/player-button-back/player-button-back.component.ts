@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import type { AppState } from "@/store/app.state";
 import type { Song } from "@/data/data";
-import { IconPlayerBackComponent } from "@/icons/player-back.component";
+import { ClickableHoldableComponent } from "@/libs/clickable-holdable-component";
 import { CurrentTimeUpdateBy, PlayerState, RepeatType } from "@/models/state/playerstate.model";
+import { IconPlayerBackComponent } from "@/icons/player-back.component";
 import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { SelectPlayerState } from "@/store/player-store/playerstore.selectors";
 import { Store } from "@ngrx/store";
@@ -17,49 +18,30 @@ import { previousSongInList } from "@/libs/utilities-song";
   templateUrl: './player-button-back.component.html',
   styleUrl: './player-button-back.component.css'
 })
-export class PlayerButtonBackComponent implements OnInit {
+export class PlayerButtonBackComponent extends ClickableHoldableComponent implements OnInit {
 
   protected playerState!: PlayerState;
-  protected isButtonPressed: boolean = false;
-  protected rewindIntervalId: number = 0;
   protected rewindStepSec: number = 2;
-  protected considerHoldingTimeAfter: number = 500;
 
 
   constructor(
     private store: Store<AppState>
   ) {
+    super();
   }
 
+  protected executeByClick(): void {
+    this.buttonPlayerBackClicked()
+  }
+
+  protected executeWhilePressing(): void {
+    this.rewindCoupleSeconds();
+  }
 
   ngOnInit(): void {
     this.store
       .select(SelectPlayerState)
       .subscribe((playerState: PlayerState) => this.playerState = playerState);
-  }
-
-  protected pressButton() {
-    this.rewindIntervalId = setInterval(() => {
-      this.isButtonPressed = true;
-      this.rewindCoupleSeconds();
-    }, this.considerHoldingTimeAfter);
-  }
-
-  protected releaseButton() {
-    if (!this.isButtonPressed) {
-      this.buttonPlayerBackClicked();
-    }
-    this.cleanUpRewindInterval()
-  }
-
-
-  protected leaveButton():void {
-    this.cleanUpRewindInterval();
-  }
-
-  private cleanUpRewindInterval(): void {
-    clearInterval(this.rewindIntervalId);
-    this.isButtonPressed = false;
   }
 
   private buttonPlayerBackClicked(): void {
@@ -92,7 +74,6 @@ export class PlayerButtonBackComponent implements OnInit {
   private isRepeatNotPlaylist(): boolean {
     return this.playerState.repeatType !== RepeatType.REPEAT_PLAYLIST;
   }
-
 
   private startSongOver(): void {
     this.updateCurrentTimeTo(0);
