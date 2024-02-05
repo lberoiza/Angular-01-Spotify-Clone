@@ -2,24 +2,27 @@
   position: relative;
   width: 30px;
   height: 30px;
+
   span {
-    background-color: whitesmoke;
+    background-color: currentColor;
     width: 3px;
-    bottom:-15px;
-    left:50%;
-    transform: translate(-50%,0);
+    bottom: 2px;
+    left: 48%;
     position: absolute;
-    transition:height 0.2s linear;
+    transition: height 0.2s linear;
 
     &:nth-child(1) {
       margin-left: -10px;
     }
+
     &:nth-child(2) {
       margin-left: -5px;
     }
+
     &:nth-child(4) {
       margin-left: 5px;
     }
+
     &:nth-child(5) {
       margin-left: 10px;
     }
