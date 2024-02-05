@@ -38,7 +38,7 @@ export class PlayerButtonNextComponent extends ClickableHoldableComponent implem
       .select(SelectPlayerState)
       .subscribe((playerState: PlayerState) => {
         this.playerState = playerState;
-        if(this.playerState.currentMusic.song){
+        if (this.playerState.currentMusic.song) {
           this.currentSongDuration = getSongDurationInSeconds(this.playerState.currentMusic.song);
         }
       });
@@ -73,7 +73,7 @@ export class PlayerButtonNextComponent extends ClickableHoldableComponent implem
   private forwardCoupleSeconds(): void {
     const newTime: number = this.playerState.currentTimeInfo.currentTime + this.forwardStepSec;
     if (this.ifCurrentTimeFarFromEnd(newTime)) {
-      this.releaseButton();
+      this.releaseHolding();
       return;
     }
     this.updateCurrentTimeTo(newTime);

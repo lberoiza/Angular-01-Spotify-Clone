@@ -30,18 +30,18 @@ export class PlayerButtonBackComponent extends ClickableHoldableComponent implem
     super();
   }
 
+  ngOnInit(): void {
+    this.store
+      .select(SelectPlayerState)
+      .subscribe((playerState: PlayerState) => this.playerState = playerState);
+  }
+
   protected executeByClick(): void {
     this.buttonPlayerBackClicked()
   }
 
   protected executeWhilePressing(): void {
     this.rewindCoupleSeconds();
-  }
-
-  ngOnInit(): void {
-    this.store
-      .select(SelectPlayerState)
-      .subscribe((playerState: PlayerState) => this.playerState = playerState);
   }
 
   private buttonPlayerBackClicked(): void {
@@ -89,7 +89,7 @@ export class PlayerButtonBackComponent extends ClickableHoldableComponent implem
   private rewindCoupleSeconds(): void {
     const newTime: number = this.playerState.currentTimeInfo.currentTime - this.rewindStepSec;
     if (newTime < 0) {
-      this.releaseButton();
+      this.releaseHolding();
       return;
     }
     this.updateCurrentTimeTo(newTime);
