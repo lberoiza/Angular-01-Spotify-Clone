@@ -12,7 +12,7 @@ import { songArtistAsString } from "@/libs/utilities-song";
   templateUrl: './playlist-details-musictable-songtitle.component.html',
   styleUrl: './playlist-details-musictable-songtitle.component.css'
 })
-export class PlaylistDetailsMusictableSongtitleComponent implements OnInit, OnChanges{
+export class PlaylistDetailsMusictableSongtitleComponent implements OnInit, OnChanges {
 
   @Input()
   public song!: Song;
