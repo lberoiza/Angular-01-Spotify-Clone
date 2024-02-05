@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import type { Song } from "@/data/data";
 import { TimeComponent } from "@/icons/time.component";
 import {
+  PlaylistDetailsMusictableIndexComponent
+} from "@/components/main/playlist-details-musictable-index/playlist-details-musictable-index.component";
+import {
   PlaylistDetailsMusictablePlayButtonComponent
 } from "@/components/main/playlist-details-musictable-play-button/playlist-details-musictable-play-button.component";
 import {
@@ -12,6 +15,7 @@ import {
   selector: 'playlist-details-musictable',
   standalone: true,
   imports: [
+    PlaylistDetailsMusictableIndexComponent,
     PlaylistDetailsMusictablePlayButtonComponent,
     PlaylistDetailsMusictableSongtitleComponent,
     TimeComponent

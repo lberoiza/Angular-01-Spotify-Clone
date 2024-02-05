@@ -20,7 +20,10 @@
           <div class="flex flex-row justify-center items-center size-10">
             <div
               class="size-10 group-hover:hidden flex flex-row justify-center items-center">
-              <span>{{ index + 1 }}</span>
+              <playlist-details-musictable-index
+                [index]="index"
+                [song]="song"
+              />
             </div>
             <div
               class="hidden group-hover:block flex flex-row justify-center items-center">
