@@ -1,4 +1,5 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
+import { PlayerStoreEffects } from "@/store/player-store/playerstore.effects";
 import { UserStoreEffects } from "@/store/user-store/userstore.effects";
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideEffects } from '@ngrx/effects';
@@ -15,6 +16,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideStore(ROOT_REDUCERS),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects([UserStoreEffects])
+    provideEffects([UserStoreEffects, PlayerStoreEffects])
 ]
 };
