@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerButtonRepeatComponent } from './player-button-repeat.component';
+import { provideMockStore } from "@ngrx/store/testing";
 
 describe('PlayerButtonRepeatComponent', () => {
   let component: PlayerButtonRepeatComponent;
@@ -8,10 +9,11 @@ describe('PlayerButtonRepeatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlayerButtonRepeatComponent]
+      imports: [PlayerButtonRepeatComponent],
+      providers: [provideMockStore()]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(PlayerButtonRepeatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

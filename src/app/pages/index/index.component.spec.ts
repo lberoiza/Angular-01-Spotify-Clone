@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IndexComponent } from './index.component';
+import { provideMockStore } from "@ngrx/store/testing";
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -8,10 +9,11 @@ describe('IndexComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IndexComponent]
+      imports: [IndexComponent],
+      providers: [provideMockStore()]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(IndexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

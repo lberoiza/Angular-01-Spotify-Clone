@@ -1,6 +1,6 @@
 <div class="flex flex-col">
   <h3 [class]="{'text-base': true, 'text-green-500': isCurrentSong}">
-    {{ song.title }}
+    {{ song?.title }}
   </h3>
-  <span>{{ songArtistAsString(song.artists) }}</span>
+  <span>{{ songArtistAsString(song?.artists || []) }}</span>
 </div>

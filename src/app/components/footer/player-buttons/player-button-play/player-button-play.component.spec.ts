@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerButtonPlayComponent } from './player-button-play.component';
+import { provideMockStore } from "@ngrx/store/testing";
 
 describe('PlayerButtonPlayComponent', () => {
   let component: PlayerButtonPlayComponent;
@@ -8,10 +9,11 @@ describe('PlayerButtonPlayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlayerButtonPlayComponent]
+      imports: [PlayerButtonPlayComponent],
+      providers: [provideMockStore()]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(PlayerButtonPlayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

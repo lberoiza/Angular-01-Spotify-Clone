@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerTrackControlComponent } from './player-track-control.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('PlayerTrackControlComponent', () => {
   let component: PlayerTrackControlComponent;
@@ -8,10 +9,11 @@ describe('PlayerTrackControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlayerTrackControlComponent]
+      imports: [PlayerTrackControlComponent],
+      providers: [provideMockStore()]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(PlayerTrackControlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -21,3 +23,4 @@ describe('PlayerTrackControlComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

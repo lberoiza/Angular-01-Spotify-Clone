@@ -15,7 +15,7 @@ import { songArtistAsString } from "@/libs/utilities-song";
 export class PlaylistDetailsMusictableSongtitleComponent implements OnInit, OnChanges {
 
   @Input()
-  public song!: Song;
+  public song: Song | undefined = undefined;
 
   protected readonly songArtistAsString = songArtistAsString;
   protected isCurrentSong: boolean = false;
@@ -38,8 +38,9 @@ export class PlaylistDetailsMusictableSongtitleComponent implements OnInit, OnCh
   }
 
   private updateIsCurrentSong(): void {
-    this.isCurrentSong = this.currentSongFromStore?.id === this.song.id &&
-      this.currentSongFromStore?.albumId === this.song.albumId;
+    this.isCurrentSong = this.song !== undefined
+      && this.currentSongFromStore?.id === this.song?.id
+      && this.currentSongFromStore?.albumId === this.song?.albumId;
   }
 
 }

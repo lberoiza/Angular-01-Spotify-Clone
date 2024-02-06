@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerVolumeButtonComponent } from './player-volume-button.component';
+import { provideMockStore } from "@ngrx/store/testing";
 
 describe('PlayerVolumeButtonComponent', () => {
   let component: PlayerVolumeButtonComponent;
@@ -8,10 +9,11 @@ describe('PlayerVolumeButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlayerVolumeButtonComponent]
+      imports: [PlayerVolumeButtonComponent],
+      providers: [provideMockStore()]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(PlayerVolumeButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

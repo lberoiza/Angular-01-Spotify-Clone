@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlaylistDetailsComponent } from './playlist-details.component';
+import { provideMockStore } from "@ngrx/store/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('PlaylistDetailsComponent', () => {
   let component: PlaylistDetailsComponent;
@@ -8,10 +10,11 @@ describe('PlaylistDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlaylistDetailsComponent]
+      imports: [PlaylistDetailsComponent, RouterTestingModule],
+      providers: [provideMockStore()]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(PlaylistDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,10 +1,9 @@
 <div class="flex flex-row justify-center items-center select-none">
   <audio #audioPlayer></audio>
-  <!--  <mat-slider showTickMarks discrete [displayWith]="formatLabel">-->
   <span class="text-gray-500 text-xs text-center w-[50px] mr-3">{{ elapsedTimeAsString() }}</span>
   <section class="w-1/2" >
     <mat-slider max="{{totalSongDurationInSeg}}">
-      <input #songTrackSlider matSliderThumb [(ngModel)]="currentTimeSeg" (input)="onInputValueSongTrackBar()">
+      <input matSliderThumb #songTrackSlider [(ngModel)]="currentTimeSeg" (input)="onInputValueSongTrackBar()">
     </mat-slider>
   </section>
   <span class="text-gray-500 text-xs text-center w-[50px] ml-7">{{ totalSongDurationAsTimeFormat }}</span>
