@@ -42,6 +42,7 @@ export class PlayerButtonShuffleComponent implements OnInit {
 
   protected buttonPlayerControlShuffleClicked(): void {
     this.isShuffle = !this.isShuffle;
+    this.store.dispatch(PlayerStoreActions.setIsShuffle({isShuffle: this.isShuffle}));
     this.isShuffle ? this.shuffleCurrentSongs() : this.sortCurrentSongs();
   }
 

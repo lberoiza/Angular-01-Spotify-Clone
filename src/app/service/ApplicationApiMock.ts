@@ -1,10 +1,14 @@
 import type { Playlist, Song } from "@/data/data";
 import type { PlaylistInfoByIdType } from "@/service/IApplicationAPI";
 import { IApplicationAPI } from "@/service/IApplicationAPI";
+import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { playlists, songs as allSongs } from "@/data/data";
 import { delay } from "rxjs/operators";
+import { playlists, songs as allSongs } from "@/data/data";
 
+@Injectable({
+  providedIn: 'root'
+})
 export class ApplicationApiMock implements IApplicationAPI {
 
 

@@ -7,10 +7,8 @@ import { PlayerStoreActions } from "@/store/player-store/playerstore.actions";
 import { Store } from "@ngrx/store";
 import {
   SelectPlayerCurrentSong,
-  SelectPlayerIsPlaying,
+  SelectPlayerIsPlaying, SelectPlayerIsShuffle,
 } from "@/store/player-store/playerstore.selectors";
-import { take } from "rxjs";
-import { ApplicationApiMock } from "@/service/ApplicationApiMock";
 
 
 @Component({
@@ -22,9 +20,7 @@ import { ApplicationApiMock } from "@/service/ApplicationApiMock";
   ],
   templateUrl: './playlist-button-play.component.html',
   styleUrl: './playlist-button-play.component.css',
-  providers: [
-    ApplicationApiMock
-  ]
+  providers: []
 })
 export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
 
@@ -39,11 +35,11 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
 
   protected playerIsPlaying: boolean = false;
   protected currentSong: Song | undefined = undefined;
+  protected isShuffle: boolean = false;
 
 
   constructor(
-    private store: Store<AppState>,
-    private applicationApi: ApplicationApiMock
+    private store: Store<AppState>
   ) {
   }
 
@@ -51,6 +47,7 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
     this.iconClassName = this.buttonSize === 'small' ? 'size-4' : 'size-5';
     this.addStoreSelectorPlayerIsPlaying();
     this.addStoreSelectPlayerCurrentSong();
+    this.addStoreSelectPlayerIsShuffle();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -70,6 +67,13 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
       .subscribe((currentSong: Song | undefined) => {
         this.currentSong = currentSong;
         this.updateIsPlaylistRunning();
+      });
+  }
+
+  private addStoreSelectPlayerIsShuffle(): void {
+    this.store.select(SelectPlayerIsShuffle)
+      .subscribe((isShuffle: boolean): void => {
+        this.isShuffle = isShuffle;
       });
   }
 
@@ -104,17 +108,7 @@ export class PlaylistButtonPlayComponent implements OnInit, OnChanges {
 
   private searchPlaylistAndSongsByPlaylistId() {
     if (this.playlistId) {
-      this.updateStoreIsPlaying(false);
-      this.applicationApi.getPlaylistInfoById(this.playlistId)
-        .pipe(take(1))
-        .subscribe(response => {
-          if(response.playlist) {
-            this.store.dispatch(PlayerStoreActions.setCurrentPlaylist({playlist: response.playlist}));
-            this.store.dispatch(PlayerStoreActions.setCurrentPlaylistSongs({songs: response.songs}));
-            this.store.dispatch(PlayerStoreActions.setCurrentSong({song: response.songs[0]}));
-          }
-          this.updateStoreIsPlaying(true);
-        })
+      this.store.dispatch(PlayerStoreActions.loadCurrentMusicStart({playlistId: this.playlistId, isShuffle: this.isShuffle}));
     }
   }
 }

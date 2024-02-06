@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import type { Playlist } from "@/data/data";
 import { AppState } from "@/store/app.state";
-import { ApplicationApiMock } from "@/service/ApplicationApiMock";
 import { HomeComponent } from "@/icons/home.component";
 import { LibraryComponent } from "@/icons/library.component";
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -13,6 +12,7 @@ import {
   LoadingPlaylistItemComponent
 } from "@/components/common/loading-components/loading-playlist-item/loading-playlist-item.component";
 import {
+  SelectUserPlaylists,
   SelectUserShouldShowLoadingPlaylistComponents
 } from "@/store/user-store/userstore.selectors";
 import { UserStoreActions } from "@/store/user-store/userstore.actions";
@@ -31,9 +31,7 @@ import { UserStoreActions } from "@/store/user-store/userstore.actions";
   ],
   templateUrl: './search-playlist.component.html',
   styleUrl: './search-playlist.component.css',
-  providers: [
-    ApplicationApiMock
-  ]
+  providers: []
 })
 export class SearchPlaylistComponent implements OnInit {
 
@@ -41,38 +39,27 @@ export class SearchPlaylistComponent implements OnInit {
   protected playlists: Playlist[] = [];
 
   constructor(
-    private applicationApi: ApplicationApiMock,
     private store: Store<AppState>
   ) {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(UserStoreActions.loadPlaylistsStarting());
     this.addStoreSelectUserShouldShowLoadingPlaylistComponents();
-    this.setLoadingIfPlaylistIsEmpty()
-    this.getPlaylistsFromAPI();
+    this.addStoreSelectUserPlaylists();
   }
 
   private addStoreSelectUserShouldShowLoadingPlaylistComponents() {
     this.store.select(SelectUserShouldShowLoadingPlaylistComponents).subscribe(shouldShowLoadingComponent => {
       this.shouldShowLoadingComponents = shouldShowLoadingComponent;
-    })
+    });
   }
 
-  private setLoadingIfPlaylistIsEmpty() {
-    if (this.playlists.length === 0 && !this.shouldShowLoadingComponents) {
-      this.store.dispatch(UserStoreActions.setIsLoadingPlaylistData({isLoadingPlaylistData: true}));
-    }
-  }
 
-  private getPlaylistsFromAPI(): void {
-    this.applicationApi.getAllPlaylists()
-      .subscribe(
-        (playlists: Playlist[]) => {
-          this.playlists = playlists;
-          this.store.dispatch(UserStoreActions.setPlaylists({playlists}));
-          this.store.dispatch(UserStoreActions.setIsLoadingPlaylistData({isLoadingPlaylistData: false}));
-        }
-      );
+  private addStoreSelectUserPlaylists(): void {
+    this.store.select(SelectUserPlaylists).subscribe((playlists: Playlist[]) => {
+      this.playlists = playlists
+    });
   }
 
 }
