@@ -28,7 +28,8 @@
               "src/custom-theme.scss",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "namedChunks": true
           },
           "configurations": {
             "production": {

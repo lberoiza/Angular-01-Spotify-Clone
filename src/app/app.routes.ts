@@ -1,8 +1,14 @@
 import { Routes } from '@angular/router';
-import { IndexComponent } from "./pages/index/index.component";
-import { PlaylistDetailsComponent } from "@/components/main/playlist-details/playlist-details.component";
 
 export const routes: Routes = [
-  {path: '', component: IndexComponent},
-  {path: 'playlist/:id', component: PlaylistDetailsComponent}
+  {
+    path: '',
+    loadComponent: () => import('@/pages/index/index.component')
+      .then(chunk => chunk.IndexComponent)
+  },
+  {
+    path: 'playlist/:id',
+    loadComponent: () => import('@/components/main/playlist-details/playlist-details.component')
+      .then(chunk => chunk.PlaylistDetailsComponent)
+  }
 ];
