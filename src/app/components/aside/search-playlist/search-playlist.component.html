@@ -17,19 +17,26 @@
   </div>
 
   <div class="hidden bg-zinc-900 rounded-lg p-2 flex-1 lg:block">
-    <ul>
-      <menu-item href="/" label="Tu biblioteca">
-        <icon-library/>
-      </menu-item>
-      @if (shouldShowLoadingComponents) {
-        @for (n of [1,2,3]; track n){
-          <loading-playlist-item/>
+    @defer (on viewport) {
+      <ul>
+        <menu-item href="/" label="Tu biblioteca">
+          <icon-library/>
+        </menu-item>
+        @if (shouldShowLoadingComponents) {
+          @for (n of [1, 2, 3]; track n) {
+            <loading-playlist-item/>
+          }
+        } @else {
+          @for (playlist of playlists; track playlist.id) {
+            <playlist-item [playlistItem]="playlist"/>
+          }
         }
-      } @else {
-        @for (playlist of playlists; track playlist.id) {
-          <playlist-item [playlistItem]="playlist"/>
-        }
-      }
-    </ul>
+      </ul>
+    } @placeholder {
+      <ul>
+      </ul>
+    }
   </div>
+
+
 </nav>
