@@ -33,13 +33,13 @@ import {
 export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('audioPlayer')
-  audioRef!: ElementRef<HTMLAudioElement>;
+  audioRef: ElementRef<HTMLAudioElement> | undefined;
 
   private playlistSongs: Song[] = [];
   private repeatType: RepeatType = RepeatType.REPEAT_PLAYLIST;
 
 
-  protected audioPlayer!: HTMLAudioElement;
+  protected audioPlayer: HTMLAudioElement | undefined = undefined;
   protected isPlayerRunning: boolean = false;
   protected currentTimeSeg: number = 0;
   protected totalSongDurationInSeg: number = 0;
@@ -54,7 +54,7 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    this.audioPlayer = this.audioRef.nativeElement;
+    this.audioPlayer = this.audioRef?.nativeElement;
     this.addStoreSelectors();
     this.addAudioPlayerListeners();
   }
@@ -102,14 +102,19 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
 
   private addStoreSelectorChangeVolume(): void {
     this.store.select(SelectPlayerVolume).subscribe((volume: number) => {
-      this.audioPlayer.volume = volume;
+      if(this.audioPlayer) {
+        this.audioPlayer.volume = volume;
+      }
+
     });
   }
 
   private addStoreSelectorCurrentSong(): void {
     this.store.select(SelectPlayerCurrentSong).subscribe((currentSong: Song | undefined) => {
       this.currentSong = currentSong;
-      this.audioPlayer.src = getSongUrl(currentSong);
+      if(this.audioPlayer) {
+        this.audioPlayer.src = getSongUrl(currentSong);
+      }
       this.playSong();
     });
   }
@@ -122,25 +127,33 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   private addListenerTimeUpdateCurrentTime(): void {
-    this.audioPlayer.addEventListener('timeupdate', () => this.onAudioTimeUpdate());
+    if(this.audioPlayer) {
+      this.audioPlayer.addEventListener('timeupdate', () => this.onAudioTimeUpdate());
+    }
   }
 
   private removeListenerTimeUpdateCurrentTime(): void {
-    this.audioPlayer.removeEventListener('timeupdate', () => this.onAudioTimeUpdate());
+    if(this.audioPlayer) {
+      this.audioPlayer.removeEventListener('timeupdate', () => this.onAudioTimeUpdate());
+    }
   }
 
   private addListenerPlayerEnded(): void {
-    this.audioPlayer.addEventListener('ended', () => this.playNextSong());
+    if(this.audioPlayer) {
+      this.audioPlayer.addEventListener('ended', () => this.playNextSong());
+    }
   }
 
   private removeListenerPlayerEnded(): void {
-    this.audioPlayer.removeEventListener('ended', () => this.playNextSong());
+    if(this.audioPlayer) {
+      this.audioPlayer.removeEventListener('ended', () => this.playNextSong());
+    }
   }
 
   private onAudioTimeUpdate() {
     this.store.dispatch(PlayerStoreActions.setCurrentTimeInfo({
       currentTimeInfo: {
-        currentTime: this.audioPlayer.currentTime,
+        currentTime: this.audioPlayer?.currentTime ?? 0,
         updatedBy: CurrentTimeUpdateBy.AUDIO_PLAYER
       }
     }));
@@ -151,14 +164,16 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   protected onInputValueSongTrackBar() {
-    this.audioPlayer.currentTime = this.currentTimeSeg;
+    if(this.audioPlayer) {
+      this.audioPlayer.currentTime = this.currentTimeSeg;
+    }
   }
 
   private playSong(): void {
-    if (this.currentSong) {
+    if (this.currentSong && this.audioPlayer) {
       this.audioPlayer.play()
         .then(() => {
-          this.totalSongDurationInSeg = this.audioPlayer.duration;
+          this.totalSongDurationInSeg = this.audioPlayer?.duration ?? 0;
           this.totalSongDurationAsTimeFormat = secondsToTimeFormat(this.totalSongDurationInSeg);
           this.store.dispatch(PlayerStoreActions.setIsPlaying({isPlaying: true}));
         })
@@ -170,7 +185,9 @@ export class PlayerTrackControlComponent implements AfterViewInit, OnDestroy {
   }
 
   private pauseSong(): void {
-    this.audioPlayer.pause()
+    if(this.audioPlayer) {
+      this.audioPlayer.pause()
+    }
   }
 
   private playOrStopPlayer() {
