@@ -9,7 +9,8 @@
     "player-tracker player-tracker";
 }
 
-@media (min-width: 1024px) {
+/* custom media query xs of tailwind */
+@media (min-width: 550px) {
   .player {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:

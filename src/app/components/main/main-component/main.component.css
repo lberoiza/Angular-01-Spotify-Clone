@@ -10,12 +10,20 @@
 }
 
 
-@media (min-width: 1024px) {
+/* custom media query xs of tailwind */
+@media (min-width: 550px) {
   #main-container {
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: 130px 1fr;
     grid-template-rows: 1fr 100px;
     grid-template-areas:
           "aside main"
           "player player";
+  }
+}
+
+/* media query lg of tailwind */
+@media (min-width: 1024px) {
+  #main-container {
+    grid-template-columns: 350px 1fr;
   }
 }
