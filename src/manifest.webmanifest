@@ -8,9 +8,9 @@
   "start_url": "./",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "72x72",
-      "type": "image/x-icon",
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
       "purpose": "maskable any"
     }
   ]
