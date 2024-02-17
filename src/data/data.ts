@@ -79,11 +79,11 @@ export const playlists: Playlist[] = [
   {
     id: '7',
     albumId: 7,
-    title: "Zelda Ocarina of Time",
-    color: colors.emerald,
+    title: "Video Game Music",
+    color: colors.red,
     cover:
-      "https://delta.vgmsite.com/soundtracks/legend-of-zelda-the-ocarina-of-time-original-sound-track-1998/Cover.jpg",
-    artists: ["No Tengo"],
+      "https://www.thefactsite.com/wp-content/uploads/2021/11/100-video-game-facts-740x370.webp",
+    artists: ["Many Artists"],
   },
 ];
 
@@ -400,6 +400,27 @@ export const songs: Song[] = [
     "artists": ["No Tengo"],
     "album": "Zelda Ocarina of Time",
     "duration": "1:20",
+    "isStored": false
+  },
+  {
+    "id": 28,
+    "url": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/xapjvjkycu/07.%20Aquatic%20Ambiance.mp3",
+    "albumId": 7,
+    "title": "Aquatic Ambiance",
+    "image": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/Donkey%20Kong%20Country%20Cover.png",
+    "artists": ["Rare"],
+    "album": "Donkey Kong Country",
+    "duration": "3:24",
+    "isStored": false
+  },  {
+    "id": 29,
+    "url": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/lpveeenjsa/13.%20Forest%20Frenzy.mp3",
+    "albumId": 7,
+    "title": "Forest Frenzy",
+    "image": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/Donkey%20Kong%20Country%20Cover.png",
+    "artists": ["Rare"],
+    "album": "Donkey Kong Country",
+    "duration": "2:06",
     "isStored": false
   },
 ]
