@@ -113,7 +113,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "3:12",
+    "duration": "2:57",
     "isStored": true
   },
   {
@@ -124,7 +124,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "4:07",
+    "duration": "3:40",
     "isStored": true
   },
   {
@@ -135,7 +135,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "3:50",
+    "duration": "3:29",
     "isStored": true
   },
   {
@@ -146,7 +146,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "3:30",
+    "duration": "2:11",
     "isStored": true
   },
   {
@@ -157,7 +157,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "4:20",
+    "duration": "2:26",
     "isStored": true
   },
   {
@@ -168,7 +168,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/files/2amsynth-vinyl.png?v=1693312187",
     "artists": ["Urban Nocturne"],
     "album": "Midnight Tales",
-    "duration": "3:40",
+    "duration": "2:38",
     "isStored": true
   },
   {
@@ -179,7 +179,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/files/2amsynth-vinyl.png?v=1693312187",
     "artists": ["Urban Nocturne"],
     "album": "Midnight Tales",
-    "duration": "3:20",
+    "duration": "2:40",
     "isStored": true
   },
   {
@@ -190,7 +190,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/files/2amsynth-vinyl.png?v=1693312187",
     "artists": ["Urban Nocturne"],
     "album": "Midnight Tales",
-    "duration": "3:50",
+    "duration":"2:53",
     "isStored": true
   },
   {
@@ -201,7 +201,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/files/2amsynth-vinyl.png?v=1693312187",
     "artists": ["Urban Nocturne"],
     "album": "Midnight Tales",
-    "duration": "3:30",
+    "duration": "3:11",
     "isStored": true
   },
   {
@@ -212,7 +212,7 @@ export const songs: Song[] = [
     "image": "https://vinyl.lofirecords.com/cdn/shop/files/2amsynth-vinyl.png?v=1693312187",
     "artists": ["Urban Nocturne"],
     "album": "Midnight Tales",
-    "duration": "4:20",
+    "duration": "2:58",
     "isStored": true
   },
   {
@@ -223,7 +223,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1435058381_65.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "3:40",
+    "duration": "3:06",
     "isStored": true
   },
   {
@@ -234,7 +234,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1435058381_65.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "3:20",
+    "duration": "1:30",
     "isStored": true
   },
   {
@@ -245,7 +245,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1435058381_65.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "2:40",
+    "duration": "1:59",
     "isStored": true
   },
   {
@@ -256,7 +256,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1435058381_65.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "3:10",
+    "duration": "3:56",
     "isStored": true
   },
   {
@@ -267,7 +267,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1435058381_65.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "2:10",
+    "duration": "2:30",
     "isStored": true
   },
   {
@@ -278,7 +278,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1962013209_16.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "3:40",
+    "duration": "2:59",
     "isStored": true
   },
   {
@@ -289,7 +289,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1962013209_16.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "3:20",
+    "duration": "2:12",
     "isStored": true
   },
   {
@@ -300,7 +300,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1962013209_16.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "2:40",
+    "duration": "3:02",
     "isStored": true
   },
   {
@@ -311,7 +311,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1962013209_16.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "3:10",
+    "duration": "2:29",
     "isStored": true
   },
   {
@@ -322,7 +322,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a1962013209_16.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
-    "duration": "2:10",
+    "duration": "2:29",
     "isStored": true
   },
   {
@@ -333,7 +333,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a2793859494_16.jpg",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "3:12",
+    "duration": "3:49",
     "isStored": true
   },
   {
@@ -344,7 +344,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a2793859494_16.jpg",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "4:07",
+    "duration": "1:52",
     "isStored": true
   },
   {
@@ -355,7 +355,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a2793859494_16.jpg",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "3:50",
+    "duration": "2:15",
     "isStored": true
   },
   {
@@ -366,7 +366,7 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a2793859494_16.jpg",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "3:30",
+    "duration": "4:06",
     "isStored": true
   },
   {
@@ -377,22 +377,11 @@ export const songs: Song[] = [
     "image": "https://f4.bcbits.com/img/a2793859494_16.jpg",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
-    "duration": "4:20",
+    "duration": "2:54",
     "isStored": true
   },
   {
     "id": 26,
-    "url": "5.mp3",
-    "albumId": 5,
-    "title": "Tranquility",
-    "image": "https://f4.bcbits.com/img/a2793859494_16.jpg",
-    "artists": ["LoFi Dreamer"],
-    "album": "Chill Lo-Fi Music",
-    "duration": "4:20",
-    "isStored": true
-  },
-  {
-    "id": 27,
     "url": "https://delta.vgmsite.com/soundtracks/legend-of-zelda-the-ocarina-of-time-original-sound-track-1998/mjihbqghgr/01%20Title%20Theme.mp3",
     "albumId": 7,
     "title": "Title Theme",
@@ -403,21 +392,21 @@ export const songs: Song[] = [
     "isStored": false
   },
   {
-    "id": 28,
+    "id": 27,
     "url": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/xapjvjkycu/07.%20Aquatic%20Ambiance.mp3",
     "albumId": 7,
     "title": "Aquatic Ambiance",
-    "image": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/Donkey%20Kong%20Country%20Cover.png",
+    "image": "https://www.binaryscroll.net/img/dkc/dkc_00.png",
     "artists": ["Rare"],
     "album": "Donkey Kong Country",
     "duration": "3:24",
     "isStored": false
   },  {
-    "id": 29,
+    "id": 28,
     "url": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/lpveeenjsa/13.%20Forest%20Frenzy.mp3",
     "albumId": 7,
     "title": "Forest Frenzy",
-    "image": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/Donkey%20Kong%20Country%20Cover.png",
+    "image": "https://www.binaryscroll.net/img/dkc/dkc_00.png",
     "artists": ["Rare"],
     "album": "Donkey Kong Country",
     "duration": "2:06",
