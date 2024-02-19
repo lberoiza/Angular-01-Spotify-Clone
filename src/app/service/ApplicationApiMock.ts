@@ -29,12 +29,33 @@ export class ApplicationApiMock implements IApplicationAPI {
       );
   }
 
+  public getSongsBySearchString(searchString: string): Observable<Song[]> {
+    return of(
+      this.findSongsByTitleOrArtistOrAlbum(searchString))
+      .pipe(delay(500)
+      );
+  }
+
   private findPlaylistById(id: string): Playlist | undefined {
     return playlists.find((playlist) => playlist.id === id);
   }
 
   private findSongsByPlaylistId(id: number): Song[] {
     return allSongs.filter(song => song.albumId === id);
+  }
+
+
+  private findSongsByTitleOrArtistOrAlbum(searchString: string): Song[] {
+    const lowerCaseSearchString = searchString.toLowerCase();
+    return allSongs.filter(song => {
+      return song.title.toLowerCase().includes(lowerCaseSearchString)
+      || this.artistArrayContainsSearchString(song.artists, lowerCaseSearchString)
+      || song.album.toLowerCase().includes(lowerCaseSearchString)
+    });
+  }
+
+  private artistArrayContainsSearchString(artistArray: string[], searchString: string): boolean {
+    return artistArray.some(artist => artist.toLowerCase().includes(searchString));
   }
 
 
