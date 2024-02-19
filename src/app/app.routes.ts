@@ -10,5 +10,10 @@ export const routes: Routes = [
     path: 'playlist/:id',
     loadComponent: () => import('@/pages/playlist-details/playlist-details.component')
       .then(chunk => chunk.PlaylistDetailsComponent)
+  },
+  {
+    path: 'search',
+    loadComponent: () => import('@/pages/search/search.component')
+      .then(chunk => chunk.SearchComponent)
   }
 ];

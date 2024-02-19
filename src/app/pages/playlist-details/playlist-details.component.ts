@@ -146,15 +146,15 @@ export class PlaylistDetailsComponent implements OnInit, OnDestroy {
     const {hours, minutes, seconds} = this.playlistDuration;
     let durationAstext = '';
     if(hours > 0) {
-      durationAstext += `${hours} hora${hours > 1 ? 's' : ''}`;
+      durationAstext += `${hours} hour${hours > 1 ? 's' : ''}`;
     }
     if(minutes > 0) {
       const bind = hours > 0 ? ', ' : '';
-      durationAstext += `${bind}${minutes} minuto${minutes > 1 ? 's' : ''}`;
+      durationAstext += `${bind}${minutes} minute${minutes > 1 ? 's' : ''}`;
     }
     if(seconds > 0) {
       const bind = minutes > 0 ? ' y ' : '';
-      durationAstext += `${bind}${seconds} segundo${seconds > 1 ? 's' : ''}`;
+      durationAstext += `${bind}${seconds} second${seconds > 1 ? 's' : ''}`;
     }
     return durationAstext;
   }
