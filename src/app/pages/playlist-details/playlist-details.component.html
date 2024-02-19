@@ -34,7 +34,7 @@
             <span>{{ songArtistAsString(playlistDetails?.artists || []) }}</span>
           </div>
           <p class="mt-1">
-            <span class="text-white">{{ playlistSongs.length }} canciones.</span>
+            <span class="text-white">{{ playlistSongs.length }} song{{playlistSongs.length > 1 ? 's' : ''}}.</span>
             <span>
               {{ showPlaylistDurationAsString() }}
             </span>
