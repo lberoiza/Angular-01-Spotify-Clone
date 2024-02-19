@@ -19,6 +19,6 @@ import { Component } from '@angular/core';
   `,
   styles: ``
 })
-export class SearchComponent {
+export class SearchIconComponent {
 
 }

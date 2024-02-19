@@ -6,7 +6,7 @@ import { LibraryComponent } from "@/icons/library.component";
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { PlaylistItemComponent } from "@/components/aside/playlist-item/playlist-item.component";
 import { RouterLink } from "@angular/router";
-import { SearchComponent } from "@/icons/search.component";
+import { SearchIconComponent } from "@/icons/search-icon.component";
 import { Store } from "@ngrx/store";
 import {
   LoadingPlaylistItemComponent
@@ -24,7 +24,7 @@ import { UserStoreActions } from "@/store/user-store/userstore.actions";
     HomeComponent,
     LibraryComponent,
     MenuItemComponent,
-    SearchComponent,
+    SearchIconComponent,
     PlaylistItemComponent,
     RouterLink,
     LoadingPlaylistItemComponent
