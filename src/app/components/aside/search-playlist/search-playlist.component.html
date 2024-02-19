@@ -2,13 +2,13 @@
   <div class="bg-zinc-900 rounded-lg p-2 flex-1 lg:flex-none">
     <ul class="flex flex-row gap-4 lg:flex-col">
       <li>
-        <menu-item href="/" label="Inicio">
+        <menu-item href="/" label="Home">
           <icon-home/>
         </menu-item>
       </li>
 
       <li>
-        <menu-item href="/" label="Buscar">
+        <menu-item href="/search" label="Search">
           <icon-search/>
         </menu-item>
       </li>
@@ -19,7 +19,7 @@
   <div class="hidden bg-zinc-900 rounded-lg p-2 flex-1 xs:block">
     @defer (on viewport) {
       <ul>
-        <menu-item href="/" label="Tu biblioteca">
+        <menu-item href="/" label="Your Library">
           <icon-library/>
         </menu-item>
         @if (shouldShowLoadingComponents) {
