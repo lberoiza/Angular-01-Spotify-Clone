@@ -1,5 +1,5 @@
-<article class="flex flex-col p-5">
-  <section>
+<article class="flex flex-col p-5 gap-5">
+  <section class="search-input">
     <div
       class="
       p-1 px-4
@@ -13,9 +13,17 @@
       <input
         type="search"
         class="bg-zinc-800 outline-none w-full"
-        placeholder="what do you like to listen?">
+        placeholder="what do you like to listen?"
+        (keyup)="onSearchInputKeyUp($event)"
+      >
     </div>
   </section>
 
+  <section class="search-results">
+    @if (results.length > 0){
+      <playlist-details-musictable [songs]="results"/>
+    }
+
+  </section>
 
 </article>
