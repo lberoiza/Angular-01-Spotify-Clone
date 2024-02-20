@@ -1,29 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import type { Song } from "@/data/data";
 import { ApplicationApiMock } from "@/service/ApplicationApiMock";
+import { Component, OnInit } from '@angular/core';
+import { SearchByStringType } from "@/service/IApplicationAPI";
 import { SearchIconComponent } from "@/icons/search-icon.component";
 import { debounceTime, Subject, take } from "rxjs";
+import { PlaylistCardComponent } from "@/components/main/playlist-card/playlist-card.component";
+
 import {
   PlaylistDetailsMusictableComponent
 } from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
 
 
 @Component({
-  selector: 'app-search',
+  selector: 'search-component',
   standalone: true,
   imports: [
     SearchIconComponent,
-    PlaylistDetailsMusictableComponent
+    PlaylistDetailsMusictableComponent,
+    PlaylistCardComponent
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
 export class SearchComponent implements OnInit {
 
-  protected results: Song[] = [];
+  protected results!: SearchByStringType;
   protected searchSubject = new Subject<string>();
 
   constructor(private applicationApi: ApplicationApiMock) {
+    this.initializeSearch();
   }
 
   ngOnInit() {
@@ -34,19 +38,26 @@ export class SearchComponent implements OnInit {
 
       this.applicationApi.getSongsBySearchString(searchValue)
         .pipe(take(1))
-        .subscribe(songs => {
-          this.results = songs;
+        .subscribe(result => {
+          this.results = result;
         });
     });
   }
 
 
-  protected onSearchInputKeyUp(event: KeyboardEvent) {
+  protected onSearchInputKeyUp(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value;
     if (searchValue) {
       this.searchSubject.next(searchValue);
     } else {
-      this.results = [];
+      this.initializeSearch();
+    }
+  }
+
+  private initializeSearch() {
+    this.results = {
+      playlists: [],
+      songs: []
     }
   }
 

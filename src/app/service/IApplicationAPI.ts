@@ -6,11 +6,15 @@ export type PlaylistInfoByIdType = {
   songs: Song[]
 };
 
+export type SearchByStringType = {
+  playlists: Playlist[],
+  songs: Song[]
+};
 
 export interface IApplicationAPI {
 
   getAllPlaylists(): Observable<Playlist[]>;
   getPlaylistInfoById(id: string): Observable<PlaylistInfoByIdType>;
-  getSongsBySearchString(searchString: string): Observable<Song[]>;
+  getSongsBySearchString(searchString: string): Observable<SearchByStringType>;
 
 }

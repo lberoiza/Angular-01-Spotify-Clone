@@ -1,0 +1,3 @@
+.search-input-container:has(:focus){
+  border-color: white;
+}
