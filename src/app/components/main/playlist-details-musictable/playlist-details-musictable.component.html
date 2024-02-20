@@ -3,7 +3,7 @@
   <tr class="text-zinc-400 lg:text-sm">
     <th class="px-4 py-2 font-light">#</th>
     <th class="px-4 py-2 font-light">Title</th>
-    <th class="px-4 py-2 font-light hidden lg:table-cell">Album</th>
+    <th class="px-4 py-2 font-light hidden md:table-cell">Album</th>
     <th class="px-4 py-2 font-light">
       <icon-time/>
     </th>
@@ -45,7 +45,7 @@
           </picture>
           <playlist-details-musictable-songtitle [song]="song"/>
         </td>
-        <td class="px-4 py-2 hidden lg:table-cell">{{ song.album }}</td>
+        <td class="px-4 py-2 hidden md:table-cell">{{ song.album }}</td>
         <td class="px-4 py-2 rounded-tr-lg rounded-br-lg">{{ song.duration }}</td>
       </tr>
     }
