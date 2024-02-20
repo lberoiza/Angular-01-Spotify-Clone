@@ -27,11 +27,11 @@ export class GreetingsUserComponent implements OnInit {
 
   private setGreeting() {
     if (this.currentHour < 12) {
-      this.greeting = "Buenos días"
+      this.greeting = "Good morning"
     } else if (this.currentHour < 18) {
-      this.greeting = "Buenas tardes"
+      this.greeting = "Good afternoon"
     } else {
-      this.greeting = "Buenas noches"
+      this.greeting = "Good evening"
     }
   }
 
