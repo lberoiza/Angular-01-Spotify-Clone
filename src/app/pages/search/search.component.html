@@ -18,7 +18,8 @@
         outline-none
         w-full"
         placeholder="what do you like to listen?"
-        (input)="onSearchInputKeyUp($event)"
+        value="{{results.searchString}}"
+        (input)="onSearchInput($event)"
       >
     </div>
   </section>
