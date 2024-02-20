@@ -1,52 +1,68 @@
+import { AppState } from "@/store/app.state";
 import { Component, OnInit } from '@angular/core';
-import type { Song } from "@/data/data";
-import { ApplicationApiMock } from "@/service/ApplicationApiMock";
+import { PlaylistCardComponent } from "@/components/main/playlist-card/playlist-card.component";
 import { SearchIconComponent } from "@/icons/search-icon.component";
-import { debounceTime, Subject, take } from "rxjs";
+import { Store } from "@ngrx/store";
+import { debounceTime, Subject } from "rxjs";
+
 import {
   PlaylistDetailsMusictableComponent
 } from "@/components/main/playlist-details-musictable/playlist-details-musictable.component";
+import { SearchStoreActions } from "@/store/search-store/searchstore.actions";
+import { SelectSearchIsSearching, SelectSearchLastResult } from "@/store/search-store/searchstore.selectors";
+import { SearchResult } from "@/models/state/searchstate.model";
 
 
 @Component({
-  selector: 'app-search',
+  selector: 'search-component',
   standalone: true,
   imports: [
     SearchIconComponent,
-    PlaylistDetailsMusictableComponent
+    PlaylistDetailsMusictableComponent,
+    PlaylistCardComponent
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
 export class SearchComponent implements OnInit {
 
-  protected results: Song[] = [];
+  protected results!: SearchResult;
   protected searchSubject = new Subject<string>();
+  protected isSearching: boolean = false;
 
-  constructor(private applicationApi: ApplicationApiMock) {
+  constructor(private store: Store<AppState>) {
+    this.initializeSearch();
   }
 
   ngOnInit() {
+    this.initializeSearchSubject();
+    this.store.select(SelectSearchIsSearching).subscribe(isSearching => this.isSearching = isSearching);
+    this.store.select(SelectSearchLastResult).subscribe(lastResult => this.results = lastResult);
+  }
+
+  private initializeSearchSubject() {
     this.searchSubject.pipe(
-      debounceTime(300)
+      debounceTime(500)
     ).subscribe(searchValue => {
       if (searchValue.length < 3) return;
-
-      this.applicationApi.getSongsBySearchString(searchValue)
-        .pipe(take(1))
-        .subscribe(songs => {
-          this.results = songs;
-        });
+      this.store.dispatch(SearchStoreActions.search({searchString: searchValue}));
     });
   }
 
+  private initializeSearch() {
+    this.results = {
+      searchString: '',
+      playlists: [],
+      songs: []
+    }
+  }
 
-  protected onSearchInputKeyUp(event: KeyboardEvent) {
+  protected onSearchInput(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value;
     if (searchValue) {
       this.searchSubject.next(searchValue);
     } else {
-      this.results = [];
+      this.store.dispatch(SearchStoreActions.setResult({searchString: '', playlists: [], songs: []}));
     }
   }
 

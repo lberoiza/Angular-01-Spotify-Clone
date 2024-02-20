@@ -1,5 +1,6 @@
 import type { Playlist, Song } from "@/data/data";
 import type { PlaylistInfoByIdType } from "@/service/IApplicationAPI";
+import type { SearchByStringType } from "@/service/IApplicationAPI";
 import { IApplicationAPI } from "@/service/IApplicationAPI";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
@@ -29,9 +30,12 @@ export class ApplicationApiMock implements IApplicationAPI {
       );
   }
 
-  public getSongsBySearchString(searchString: string): Observable<Song[]> {
+  public getPlaylistAndSongsBySearchString(searchString: string): Observable<SearchByStringType> {
     return of(
-      this.findSongsByTitleOrArtistOrAlbum(searchString))
+      {
+        playlists: this.findPlaylistsByTitle(searchString),
+        songs: this.findSongsByTitleOrArtistOrAlbum(searchString)
+      })
       .pipe(delay(500)
       );
   }
@@ -45,12 +49,17 @@ export class ApplicationApiMock implements IApplicationAPI {
   }
 
 
+  private findPlaylistsByTitle(searchString: string): Playlist[] {
+    const lowerCaseSearchString = searchString.toLowerCase();
+    return playlists.filter(playlist => playlist.title.toLowerCase().includes(lowerCaseSearchString));
+  }
+
   private findSongsByTitleOrArtistOrAlbum(searchString: string): Song[] {
     const lowerCaseSearchString = searchString.toLowerCase();
     return allSongs.filter(song => {
       return song.title.toLowerCase().includes(lowerCaseSearchString)
-      || this.artistArrayContainsSearchString(song.artists, lowerCaseSearchString)
-      || song.album.toLowerCase().includes(lowerCaseSearchString)
+        || this.artistArrayContainsSearchString(song.artists, lowerCaseSearchString)
+        || song.album.toLowerCase().includes(lowerCaseSearchString)
     });
   }
 

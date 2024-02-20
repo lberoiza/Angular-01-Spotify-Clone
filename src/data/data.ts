@@ -401,16 +401,6 @@ export const songs: Song[] = [
     "album": "Donkey Kong Country",
     "duration": "3:24",
     "isStored": false
-  },  {
-    "id": 28,
-    "url": "https://dl.vgmdownloads.com/soundtracks/donkey-kong-country-snes/lpveeenjsa/13.%20Forest%20Frenzy.mp3",
-    "albumId": 7,
-    "title": "Forest Frenzy",
-    "image": "https://www.binaryscroll.net/img/dkc/dkc_00.png",
-    "artists": ["Rare"],
-    "album": "Donkey Kong Country",
-    "duration": "2:06",
-    "isStored": false
-  },
+  }
 ]
 
