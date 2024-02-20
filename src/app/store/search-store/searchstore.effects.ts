@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserStoreEffects {
+export class SearchStoreEffects {
 
   searchSongsByString$ = createEffect(() =>
     this.actions$.pipe(
