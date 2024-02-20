@@ -1,6 +1,6 @@
 import type { Playlist, Song } from "@/data/data";
 
-type SearchResult = {
+export type SearchResult = {
   searchString: string;
   playlists: Playlist[];
   songs: Song[];
