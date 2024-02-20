@@ -11,6 +11,9 @@ import {
 import { SearchStoreActions } from "@/store/search-store/searchstore.actions";
 import { SelectSearchIsSearching, SelectSearchLastResult } from "@/store/search-store/searchstore.selectors";
 import { SearchResult } from "@/models/state/searchstate.model";
+import {
+  LoadingPlaylistCardComponent
+} from "@/components/common/loading-components/loading-playlist-card/loading-playlist-card.component";
 
 
 @Component({
@@ -19,7 +22,8 @@ import { SearchResult } from "@/models/state/searchstate.model";
   imports: [
     SearchIconComponent,
     PlaylistDetailsMusictableComponent,
-    PlaylistCardComponent
+    PlaylistCardComponent,
+    LoadingPlaylistCardComponent
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
@@ -66,4 +70,14 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  protected hasInputMinCharacters(): boolean {
+    return this.results.searchString.length > 2;
+  }
+
+  protected hasNotPlaylistFound(): boolean {
+    return this.results.playlists.length === 0 && !this.isSearching && this.hasInputMinCharacters();
+  }
+  protected hasSongsFound(): boolean {
+    return this.results.songs.length > 0 && !this.isSearching && this.hasInputMinCharacters();
+  }
 }

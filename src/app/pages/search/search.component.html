@@ -24,21 +24,40 @@
     </div>
   </section>
 
-  @if (results.playlists.length > 0) {
+  @if (hasInputMinCharacters()) {
     <section class="search-results-playlists">
       <h2 class="text-white">Playlist Results</h2>
       <div class="flex flex-wrap mt-6 gap-4 justify-center xl:justify-start">
+        @if (isSearching) {
+          <loading-playlist-card/>
+        }
+
         @for (playlist of results.playlists; track playlist.id) {
           <playlist-card [playlist]="playlist"/>
         }
       </div>
+
+
+      @if (hasNotPlaylistFound()) {
+        <div class="flex flex-nowrap gap-3 justify-center">
+          <span>No playlists found</span>
+        </div>
+      }
     </section>
   }
 
-  @if (results.songs.length > 0) {
+
+  @if (hasInputMinCharacters()) {
     <section class="search-results-songs">
       <h2 class="text-white">Song Results</h2>
-      <playlist-details-musictable [songs]="results.songs"/>
+      @if (hasSongsFound()) {
+        <playlist-details-musictable [songs]="results.songs"/>
+      } @else {
+        <div class="flex flex-nowrap gap-3 justify-center">
+          <span>No songs found</span>
+
+        </div>
+      }
     </section>
   }
 
