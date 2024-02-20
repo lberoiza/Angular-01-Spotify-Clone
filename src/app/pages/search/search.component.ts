@@ -1,7 +1,6 @@
 import { AppState } from "@/store/app.state";
 import { Component, OnInit } from '@angular/core';
 import { PlaylistCardComponent } from "@/components/main/playlist-card/playlist-card.component";
-import { SearchByStringType } from "@/service/IApplicationAPI";
 import { SearchIconComponent } from "@/icons/search-icon.component";
 import { Store } from "@ngrx/store";
 import { debounceTime, Subject } from "rxjs";
@@ -43,7 +42,7 @@ export class SearchComponent implements OnInit {
 
   private initializeSearchSubject() {
     this.searchSubject.pipe(
-      debounceTime(300)
+      debounceTime(500)
     ).subscribe(searchValue => {
       if (searchValue.length < 3) return;
       this.store.dispatch(SearchStoreActions.search({searchString: searchValue}));
