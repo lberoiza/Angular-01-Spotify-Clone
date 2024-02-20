@@ -30,7 +30,7 @@ export class ApplicationApiMock implements IApplicationAPI {
       );
   }
 
-  public getSongsBySearchString(searchString: string): Observable<SearchByStringType> {
+  public getPlaylistAndSongsBySearchString(searchString: string): Observable<SearchByStringType> {
     return of(
       {
         playlists: this.findPlaylistsByTitle(searchString),

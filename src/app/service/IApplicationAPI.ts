@@ -15,6 +15,6 @@ export interface IApplicationAPI {
 
   getAllPlaylists(): Observable<Playlist[]>;
   getPlaylistInfoById(id: string): Observable<PlaylistInfoByIdType>;
-  getSongsBySearchString(searchString: string): Observable<SearchByStringType>;
+  getPlaylistAndSongsBySearchString(searchString: string): Observable<SearchByStringType>;
 
 }

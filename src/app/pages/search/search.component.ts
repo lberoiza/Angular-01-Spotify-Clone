@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
     ).subscribe(searchValue => {
       if (searchValue.length < 3) return;
 
-      this.applicationApi.getSongsBySearchString(searchValue)
+      this.applicationApi.getPlaylistAndSongsBySearchString(searchValue)
         .pipe(take(1))
         .subscribe(result => {
           this.results = result;
