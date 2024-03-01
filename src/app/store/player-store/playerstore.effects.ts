@@ -13,6 +13,12 @@ import { Song } from "@/data/data";
 })
 export class PlayerStoreEffects {
 
+  constructor(
+    private actions$: Actions,
+    private applicationApi: ApplicationApiMock
+  ) {
+  }
+
   loadCurrentMusic$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerStoreActions.loadCurrentMusicStart),
@@ -20,7 +26,7 @@ export class PlayerStoreEffects {
         this.applicationApi.getPlaylistInfoById(action.playlistId)
           .pipe(
             switchMap((playlistInfo: PlaylistInfoByIdType) => {
-                if (playlistInfo.playlist == undefined || playlistInfo.songs.length == 0) return of();
+                if (playlistInfo.playlist == undefined || playlistInfo.songs.length == 0) return this.loadEnds();
 
                 const songs: Song[] = action.isShuffle ? shuffleSongArray(playlistInfo.songs) : playlistInfo.songs;
                 return of(
@@ -31,14 +37,13 @@ export class PlayerStoreEffects {
                 )
               }
             ),
-            catchError(() => of(PlayerStoreActions.loadCurrentMusicEnded())))
+            catchError(() => this.loadEnds()))
       )
     )
   );
 
-  constructor(
-    private actions$: Actions,
-    private applicationApi: ApplicationApiMock
-  ) {
+  private loadEnds() {
+    return of(PlayerStoreActions.loadCurrentMusicEnded())
   }
+
 }
