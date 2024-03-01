@@ -11,6 +11,12 @@ import { of } from 'rxjs';
 })
 export class SearchStoreEffects {
 
+  constructor(
+    private actions$: Actions,
+    private applicationApi: ApplicationApiMock
+  ) {
+  }
+
   searchSongsByString$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SearchStoreActions.search),
@@ -37,9 +43,4 @@ export class SearchStoreEffects {
     )
   );
 
-  constructor(
-    private actions$: Actions,
-    private applicationApi: ApplicationApiMock
-  ) {
-  }
 }
